@@ -19,7 +19,21 @@ git checkout -b <branch_name>
 ```
 4) Start messing around.
 
-====
+---
 ### Everyday workflow
 1) Get latest version of dev branch
-1) Verify that you're in the right branch:
+```shell
+git checkout dev
+git pull
+```
+2) Merge dev into the branch you're working on
+```shell
+git checkout <branch_im_working_on>
+git merge dev
+```
+3) Resume your work. Add/commit as you go.
+4) Once you're satisfied with your changes — feature is working, tests passing, bug fixed, etc. — repete steps 1 and 2 to make sure your branch is compatible with the latest dev branch.
+5) Upload your changes
+```shell
+git push
+```
