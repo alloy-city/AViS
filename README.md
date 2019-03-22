@@ -1,7 +1,7 @@
-# AViS
-## Alloy Virtual Space
+# AViS - Alloy Virtual Space
 A multi-platform virtual space for learning and teaching in real time.
-====
+
+---
 
 ## How to contribute
 ### First time / new computer
