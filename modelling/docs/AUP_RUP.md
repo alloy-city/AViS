@@ -3,6 +3,9 @@
 ---
 ### Etapas
 #### RUP (Rational Unified Process)
+
+![RUP](./imgs/RUP_diagram.jpg)
+
 |etapas|AUP|
 |-|-|
 |Modelagem de negócios| Compreender o negócio em si (a comunicação entre engenharia de negócios e engenharia de software) os problemas e as possíveis melhorias|
@@ -14,6 +17,9 @@
 
 ---
 #### AUP (Agile Unified Process)
+
+![AUP](./imgs/AUP_diagram.jpg)
+
 |etapas|AUP|
 |-|-|
 |Modelo|Domínio do problema e indentificação das possíveis soluções|
@@ -37,10 +43,5 @@
 
 
 > Nota: Na AUP as etapas de [IMPLEMENTAÇÂO, TESTE e IMPLANTAÇÃO] ocorrem partindo da segunda etapa, já na AUP estas são as três últimas etapas, sendo assim, RUP é uma metodologia mais estática (sequencial), ou seja, imutável já que a documentação precede o sistema, não havendo muitas alteraçõe nas etapas finais.
----
-
-#### Diagramas de fases
-[Fases AUP](http://www.ambysoft.com/artwork/lifecycleAgileUP.gif)  
-[Fases RUP](https://www.infoescola.com/wp-content/uploads/2010/03/graficoRUP.jpg)
 
 ---
