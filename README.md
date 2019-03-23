@@ -37,4 +37,4 @@ git merge dev
 ```shell
 git push
 ```
-6) Make a Pull Request.
+6) Make a Pull Request!
