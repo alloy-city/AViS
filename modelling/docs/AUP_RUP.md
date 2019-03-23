@@ -22,7 +22,7 @@
 
 |etapas|AUP|
 |-|-|
-|Modelo|Domínio do problema e indentificação das possíveis soluções|
+|Modelo|Domínio do problema e identificação das possíveis soluções|
 |Implementação| Modelo básico para testes|
 |Teste|Avaliação de qualidade para verificar se os requisitos foram atendidos|
 |Implantação|Planejamento da entrega do sistema|
@@ -42,6 +42,6 @@
 |7|Meio Ambiente| * |
 
 
-> Nota: Na AUP as etapas de [IMPLEMENTAÇÂO, TESTE e IMPLANTAÇÃO] ocorrem partindo da segunda etapa, já na AUP estas são as três últimas etapas, sendo assim, RUP é uma metodologia mais estática (sequencial), ou seja, imutável já que a documentação precede o sistema, não havendo muitas alteraçõe nas etapas finais.
+> Nota: Na AUP as etapas de [IMPLEMENTAÇÂO, TESTE e IMPLANTAÇÃO] ocorrem partindo da segunda etapa, já na AUP estas são as três últimas etapas, sendo assim, RUP é uma metodologia mais estática (sequêncial), ou seja, imutável já que a documentação precede o sistema, não havendo muitas alterações nas etapas finais.
 
 ---
