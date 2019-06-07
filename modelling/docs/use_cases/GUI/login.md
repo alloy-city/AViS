@@ -1,0 +1,1 @@
+Ao executar um cliente AViS, o Usuário vê uma tela de login, com os campos email e senha. No protótipo, o usuário só poderá fazer login com seu email. A possibilidade de fazer login com redes sociais deverá ser implementada para a versão comercial do AViS, antes do lançamento 1.0.
