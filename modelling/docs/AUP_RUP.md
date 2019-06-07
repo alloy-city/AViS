@@ -42,6 +42,6 @@
 |7|Meio Ambiente| * |
 
 
-> Nota: Na AUP as etapas de [IMPLEMENTAÇÂO, TESTE e IMPLANTAÇÃO] ocorrem partindo da segunda etapa, já na AUP estas são as três últimas etapas, sendo assim, RUP é uma metodologia mais estática (sequêncial), ou seja, imutável já que a documentação precede o sistema, não havendo muitas alterações nas etapas finais.
+> Nota: Na AUP as etapas de [IMPLEMENTAÇÃO, TESTE e IMPLANTAÇÃO] ocorrem partindo da segunda etapa, já na RUP estas são as três últimas etapas, sendo assim, RUP é uma metodologia mais estática (sequêncial), ou seja, imutável já que a documentação precede o sistema, não havendo muitas alterações nas etapas finais.
 
 ---
