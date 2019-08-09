@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\AViS.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{6861FD00-8747-4070-ADC1-1E5527C43C6B}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\AViS.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\AViSEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.gitignore" />
+    <None Include="..\..\CONTRIBUTING.md" />
+    <None Include="..\..\LICENSE" />
+    <None Include="..\..\README.md" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{E33A9149-998A-4B7B-B9D1-02077E3EBA4D}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\AViS">
+      <UniqueIdentifier>{4682DA6F-932A-47AF-B96E-5D7495F07070}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\AViS\AViS.Build.cs">
+      <Filter>Source\AViS</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\AViS\AViS.cpp">
+      <Filter>Source\AViS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\AViS\AViS.h">
+      <Filter>Source\AViS</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\AViS\AViSCharacter.cpp">
+      <Filter>Source\AViS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\AViS\AViSCharacter.h">
+      <Filter>Source\AViS</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\AViS\AViSGameMode.cpp">
+      <Filter>Source\AViS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\AViS\AViSGameMode.h">
+      <Filter>Source\AViS</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\AViS\AViSHUD.cpp">
+      <Filter>Source\AViS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\AViS\AViSHUD.h">
+      <Filter>Source\AViS</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\AViS\AViSProjectile.cpp">
+      <Filter>Source\AViS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\AViS\AViSProjectile.h">
+      <Filter>Source\AViS</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\AViS\MovingPlatform.cpp">
+      <Filter>Source\AViS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\AViS\MovingPlatform.h">
+      <Filter>Source\AViS</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

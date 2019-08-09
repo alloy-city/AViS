@@ -1,0 +1,3 @@
+C:\Users\barba\code\Alloy\AViS\Source\AViS\AViS.Build.cs
+C:\Users\barba\code\Alloy\AViS\Source\AViS.Target.cs
+C:\Users\barba\code\Alloy\AViS\Source\AViSEditor.Target.cs

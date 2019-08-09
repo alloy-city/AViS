@@ -1,0 +1,10 @@
+C:\Users\barba\code\Alloy\AViS\Intermediate\Build\Win64\UE4Editor\Development\AViS\Definitions.AViS.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
+C:\Users\barba\code\Alloy\AViS\Source\AViS/AViSHUD.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Classes\GameFramework/HUD.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Classes\GameFramework/HUDHitBox.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Classes\GameFramework/DebugTextInfo.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\DebugTextInfo.generated.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\HUD.generated.h
+c:\users\barba\code\alloy\avis\intermediate\build\win64\ue4editor\inc\avis\AViSHUD.generated.h

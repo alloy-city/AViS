@@ -1,0 +1,19 @@
+C:\Users\barba\code\AViS\Intermediate\Build\Win64\UE4\Development\AViS\Definitions.AViS.h
+c:\users\barba\code\avis\source\avis\AViSHUD.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Classes\GameFramework/HUD.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Classes\GameFramework/HUDHitBox.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Classes\GameFramework/DebugTextInfo.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Intermediate\Build\Win64\UE4\Inc\Engine\DebugTextInfo.generated.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Intermediate\Build\Win64\UE4\Inc\Engine\HUD.generated.h
+C:\Users\barba\code\AViS\Intermediate\Build\Win64\UE4\Inc\AViS\AViSHUD.generated.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Classes\Engine/Canvas.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Public\CanvasItem.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Classes\Engine/Font.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Classes\Engine/FontImportOptions.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Intermediate\Build\Win64\UE4\Inc\Engine\FontImportOptions.generated.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\SlateCore\Public\Fonts/FontProviderInterface.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Intermediate\Build\Win64\UE4\Inc\SlateCore\FontProviderInterface.generated.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Intermediate\Build\Win64\UE4\Inc\Engine\Font.generated.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Public\CanvasTypes.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Intermediate\Build\Win64\UE4\Inc\Engine\CanvasTypes.generated.h
+C:\Program Files\Epic Games\UE_4.22\Engine\Intermediate\Build\Win64\UE4\Inc\Engine\Canvas.generated.h
