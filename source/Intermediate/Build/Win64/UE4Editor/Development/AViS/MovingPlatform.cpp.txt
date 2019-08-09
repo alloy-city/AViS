@@ -1,5 +1,0 @@
-C:\Users\barba\code\Alloy\AViS\Intermediate\Build\Win64\UE4Editor\Development\AViS\Definitions.AViS.h
-c:\users\barba\code\alloy\avis\source\avis\MovingPlatform.h
-C:\Program Files\Epic Games\UE_4.22\Engine\Source\Runtime\Engine\Classes\Engine/StaticMeshActor.h
-C:\Program Files\Epic Games\UE_4.22\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\StaticMeshActor.generated.h
-C:\Users\barba\code\Alloy\AViS\Intermediate\Build\Win64\UE4Editor\Inc\AViS\MovingPlatform.generated.h
