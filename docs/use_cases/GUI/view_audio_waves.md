@@ -1,0 +1,1 @@
+O HUD do usuário deverá mostrar uma representação gráfica, mesmo que rudimentar, do fluxo de áudio capturado pelo microfone do usuário. No MVP, essa representação poderá se limitar a uma barra de progressão que flutua com base no volume de som, originado no microfone local, sendo processado pelo sistema.

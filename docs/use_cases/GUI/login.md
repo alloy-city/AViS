@@ -1,0 +1,1 @@
+Ao executar um cliente AViS, o Usuário vê uma tela de login, com os campos e-mail e senha. No MVP (Minimum Viable Product), o usuário só poderá fazer login com seu e-mail. A possibilidade de fazer login com redes sociais deverá ser implementada para a versão comercial do AViS, antes do lançamento 1.0.
