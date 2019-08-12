@@ -18,4 +18,7 @@ public:
 	AMovingPlatform();
 
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnyWhere)
+	float Speed = 20;
 };
