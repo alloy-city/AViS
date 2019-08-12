@@ -13,5 +13,9 @@ UCLASS()
 class AVIS_API AMovingPlatform : public AStaticMeshActor
 {
 	GENERATED_BODY()
-	
+
+public:
+	AMovingPlatform();
+
+	virtual void Tick(float DeltaTime) override;
 };
