@@ -1,5 +1,7 @@
 # Cronograma do Projeto AViS em 2019.2
 
+### 12/08
+* Demonstrar distinção entre cógigo rodando no cliente vs no servidor (UE4)
 ### 21/08
 * Linux Server
 ### 28/08
