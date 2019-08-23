@@ -10,9 +10,9 @@
 * Linux Server
 ### 28/08
 * Riscos - Vitor
-* Arquitetura da aplicação atual - Bernardo
+* [DONE] Arquitetura da aplicação atual - Bernardo
 * Diagrama de Sequência - Weuller
-* Interface com o servidor NodeJS da Alloy API (input/output)
+* Interface com o servidor NodeJS da Alloy API (input/output) - Bernardo
 ### 04/09
 * Descrição atual - Vitor
 * Problemas encontrados - Vitor
