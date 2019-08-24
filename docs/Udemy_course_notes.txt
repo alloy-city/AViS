@@ -1,0 +1,15 @@
+Chapter 17
+	Writing debug messages on creen
+	Console commands
+
+Chapter 19
+	Joining a server
+
+Chapter 23
+	UE4 UI basics
+	Center UI elements
+
+Chapter 24
+	Access BP class from C++ (FClassFinder)
+	How to have VS start autocompleting with things from a module included in the build config file (AViS.Build.cs)
+	
