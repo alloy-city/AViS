@@ -14,6 +14,3 @@ class AAViSGameMode : public AGameModeBase
 public:
 	AAViSGameMode();
 };
-
-
-

@@ -20,5 +20,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	float Speed = 20;
+	float Speed = 1;
 };

@@ -34,7 +34,7 @@ AAViSCharacter::AAViSCharacter()
 
 	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
 	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
-	Mesh1P->SetOnlyOwnerSee(false);
+	Mesh1P->SetOnlyOwnerSee(true);
 	Mesh1P->SetupAttachment(FirstPersonCameraComponent);
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
@@ -118,12 +118,12 @@ void AAViSCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind fire event
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AAViSCharacter::OnFire);
+	// PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AAViSCharacter::OnFire);
 
 	// Enable touchscreen input
-	EnableTouchscreenMovement(PlayerInputComponent);
+	// EnableTouchscreenMovement(PlayerInputComponent);
 
-	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AAViSCharacter::OnResetVR);
+	// PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AAViSCharacter::OnResetVR);
 
 	// Bind movement events
 	PlayerInputComponent->BindAxis("MoveForward", this, &AAViSCharacter::MoveForward);
@@ -138,6 +138,7 @@ void AAViSCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AAViSCharacter::LookUpAtRate);
 }
 
+/*
 void AAViSCharacter::OnFire()
 {
 	// try and fire a projectile
@@ -185,36 +186,37 @@ void AAViSCharacter::OnFire()
 		}
 	}
 }
+*/
 
-void AAViSCharacter::OnResetVR()
-{
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
-}
+//void AAViSCharacter::OnResetVR()
+//{
+//	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
+//}
 
-void AAViSCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == true)
-	{
-		return;
-	}
-	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
-	{
-		OnFire();
-	}
-	TouchItem.bIsPressed = true;
-	TouchItem.FingerIndex = FingerIndex;
-	TouchItem.Location = Location;
-	TouchItem.bMoved = false;
-}
-
-void AAViSCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == false)
-	{
-		return;
-	}
-	TouchItem.bIsPressed = false;
-}
+//void AAViSCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
+//{
+//	if (TouchItem.bIsPressed == true)
+//	{
+//		return;
+//	}
+//	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
+//	{
+//		OnFire();
+//	}
+//	TouchItem.bIsPressed = true;
+//	TouchItem.FingerIndex = FingerIndex;
+//	TouchItem.Location = Location;
+//	TouchItem.bMoved = false;
+//}
+//
+//void AAViSCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
+//{
+//	if (TouchItem.bIsPressed == false)
+//	{
+//		return;
+//	}
+//	TouchItem.bIsPressed = false;
+//}
 
 //Commenting this section out to be consistent with FPS BP template.
 //This allows the user to turn without using the right virtual joystick
@@ -284,17 +286,17 @@ void AAViSCharacter::LookUpAtRate(float Rate)
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-bool AAViSCharacter::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
-{
-	if (FPlatformMisc::SupportsTouchInput() || GetDefault<UInputSettings>()->bUseMouseForTouch)
-	{
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AAViSCharacter::BeginTouch);
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Released, this, &AAViSCharacter::EndTouch);
-
-		//Commenting this out to be more consistent with FPS BP template.
-		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &AAViSCharacter::TouchUpdate);
-		return true;
-	}
-	
-	return false;
-}
+//bool AAViSCharacter::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
+//{
+//	if (FPlatformMisc::SupportsTouchInput() || GetDefault<UInputSettings>()->bUseMouseForTouch)
+//	{
+//		PlayerInputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AAViSCharacter::BeginTouch);
+//		PlayerInputComponent->BindTouch(EInputEvent::IE_Released, this, &AAViSCharacter::EndTouch);
+//
+//		//Commenting this out to be more consistent with FPS BP template.
+//		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &AAViSCharacter::TouchUpdate);
+//		return true;
+//	}
+//	
+//	return false;
+//}
