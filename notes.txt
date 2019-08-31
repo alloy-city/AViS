@@ -1,0 +1,5 @@
+Run client on dev environment
+"C:\UnrealEngine\Engine\Binaries\Win64\UE4Editor.exe" "C:\AViS\AViS.uproject" -game -ResX=720 -ResY=420 -WINDOWED
+
+Run server on dev environment
+& "C:\UnrealEngine\Engine\Binaries\Win64\UE4Editor.exe" "C:\AViS\AViS.uproject" -server -log

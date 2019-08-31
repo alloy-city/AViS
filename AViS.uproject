@@ -1,0 +1,16 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{5BB5D01E-4F6B-FF9D-A5B9-84A7E4E773C2}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "AViS",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	]
+}

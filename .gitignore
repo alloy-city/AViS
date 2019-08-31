@@ -1,8 +1,8 @@
 # Visual Studio 2015 user specific files
 .vs/
 
-# Visual Studio 2015 database file
-*.VC.db
+# Visual Studio Code user specific files
+.vscode/
 
 # Compiled Object files
 *.slo
@@ -39,6 +39,7 @@
 *.xcworkspace
 *.sln
 *.suo
+
 *.opensdf
 *.sdf
 *.VC.db
@@ -75,3 +76,7 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Others
+*.tmp
+~*

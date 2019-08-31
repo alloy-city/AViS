@@ -1,0 +1,1 @@
+O Usuário deve poder ativar e desativar seu próprio microfone, através de um botão constantemente visível no HUD. Ao clicar nesse botão, o sistema deve desativar o microfone, o fluxo de áudio e o subsistema de compactação de áudio.
