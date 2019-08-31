@@ -12,4 +12,7 @@ Chapter 23
 Chapter 24
 	Access BP class from C++ (FClassFinder)
 	How to have VS start autocompleting with things from a module included in the build config file (AViS.Build.cs)
-	
+
+Chapter 47
+	Add includes paths, for header files, in Visual Studio
+
