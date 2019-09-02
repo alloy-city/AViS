@@ -1,0 +1,41 @@
+Classroom
+	+Join() : void 
+	+Leave() : void
+	---
+	+maxUsers : int
+	+users : User[]
+
+User
+	+avatar : Avatar
+	+addAudioStream(User*) : Buffer
+	+addFaceStream(User*) : Buffer
+	---
+	+setAvatar(Avatar*) : void
+	+audioStreams : Buffer[]
+	+faceStreams : Buffer[]
+
+Avatar
+	+user : User
+	---
+	+setUser(User*) : void
+
+Body
+	+setXPosition(float) : void
+	+setYPosition(float) : void
+	+setZPosition(float) : void
+	---
+	+XPosition : float
+	+YPosition : float
+	+XPosition : float
+
+Head
+	+setHFace(float) : void
+	+setVFace(float) : void
+	---
+	+HFacing : float
+	+VFacing : float
+
+Face
+	+setFace(String) : void
+	---
+	+face : String

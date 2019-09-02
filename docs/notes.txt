@@ -1,0 +1,11 @@
+Command to launch the Server, compiled to UE4 Editor, at Skeptic
+& "C:\UE4\UnrealEngine\Engine\Binaries\Win64\UE4Editor.exe" "C:\Users\barba\code\Alloy\AViS\AViS.uproject" -server -log
+
+Command to launch the Client, compiled to UE4 Editor, at Skeptic
+& "C:\UE4\UnrealEngine\Engine\Binaries\Win64\UE4Editor.exe" "C:\Users\barba\code\Alloy\AViS\AViS.uproject" -game -ResX=720 -ResY=420 -WINDOWED
+
+Escrita
+
+Acrescentar ao cronograma os textos a serem escritos, conforme o template 29/08
+Acrescentar ao cronograma os diagramas a serem elaborados 29/08
+
