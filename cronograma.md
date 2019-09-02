@@ -17,7 +17,7 @@
 * Descrição atual - Vitor
 * Problemas encontrados - Vitor
 [DONE] * Tecnologias utilizadas e APIs - Bernardo
-* Requisitos não funcionais - Bernardo
+[DONE] * Requisitos não funcionais - Bernardo
 * Aplicativos disponíveis no projeto - Weuller
 * Considerações sobre o Banco de Dados utilizado
 * Sincronização de posições dos avatars
