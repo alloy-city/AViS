@@ -16,7 +16,7 @@
 ### 04/09
 * Descrição atual - Vitor
 * Problemas encontrados - Vitor
-* Tecnologias utilizadas e APIs - Bernardo
+[DONE] * Tecnologias utilizadas e APIs - Bernardo
 * Requisitos não funcionais - Bernardo
 * Aplicativos disponíveis no projeto - Weuller
 * Considerações sobre o Banco de Dados utilizado
