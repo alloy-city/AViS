@@ -12,15 +12,15 @@
 * Riscos - Vitor
 * [DONE] Arquitetura da aplicação atual - Bernardo
 * Diagrama de Sequência - Weuller
-* Interface com o servidor NodeJS da Alloy API (input/output) - Bernardo
+* [DONE] Interface com o servidor NodeJS da Alloy API (input/output) - Bernardo
 ### 04/09
 * Descrição atual - Vitor
 * Problemas encontrados - Vitor
-* Tecnologias utilizadas e APIs - Bernardo
-* Requisitos não funcionais - Bernardo
-* Aplicativos disponíveis no projeto - Weuller
-* Considerações sobre o Banco de Dados utilizado
-* Sincronização de posições dos avatars
+* [DONE] Tecnologias utilizadas e APIs - Bernardo
+* [DONE] Requisitos não funcionais - Bernardo
+* Aplicativos relevantes disponíveis no mercado - Weuller
+* [DONE] Considerações sobre o Banco de Dados utilizado
+* [DONE] Sincronização de posições dos avatars
 ### 11/09
 * Situação proposta - Vitor
 * Descrição dos casos de uso
