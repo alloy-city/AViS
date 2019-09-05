@@ -18,7 +18,7 @@
 * Problemas encontrados - Vitor
 * [DONE] Tecnologias utilizadas e APIs - Bernardo
 * [DONE] Requisitos não funcionais - Bernardo
-* Aplicativos disponíveis no projeto - Weuller
+* Aplicativos relevantes disponíveis no mercado - Weuller
 * [DONE] Considerações sobre o Banco de Dados utilizado
 * [DONE] Sincronização de posições dos avatars
 ### 11/09
