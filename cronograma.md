@@ -5,11 +5,11 @@
 * Demonstrar distinção entre cógigo rodando no cliente vs no servidor (UE4)
 ### 21/08
 * Introdução
-* Diagrama de Casos de Uso
-* Diagrama de Classes
-* Linux Server
+* [DONE] Diagrama de Casos de Uso
+* [DONE] Diagrama de Classes
+* [DONE] Linux Server
 ### 28/08
-* Riscos - Vitor
+* [DONE] Riscos - Vitor
 * [DONE] Arquitetura da aplicação atual - Bernardo
 * Diagrama de Sequência - Weuller
 * [DONE] Interface com o servidor NodeJS da Alloy API (input/output) - Bernardo
@@ -25,21 +25,21 @@
 * Situação proposta - Vitor
 * Descrição dos casos de uso
 * Componentes do SW - Weuller | Bernardo
-* Integrar OpenCV
-* Acesso ao disco (input/output)
+* [DONE] Integrar OpenCV
+* Replicação de Texturas Dinâmicas - Bernardo
 ### 18/09
 * Limitações operacionais - Vitor
 * Considerações de hardware e software - Bernardo
 * Diagrama de Pacote - Weuller
-* Crop + resize imagem de exemplo em disco
+* Crop + resize frames - Bernardo
 ### 25/09
 * Considerações legais
 * Políticas organizacionais
 * Diagrama de Estado - Weuller
 * Embasamento teórico
-* Identificar coordenadas de rosto em imagens em disco
+* Identificar coordenadas do rosto
 ### 02/10
-* Demonstrar acesso à webcam 
+* [DONE] Demonstrar acesso à webcam 
 * Demonstrar acesso ao microfone
 ### 09/10
 * Demonstrar NAT Punching
