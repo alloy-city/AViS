@@ -7,14 +7,21 @@
 #include "opencv2/videoio.hpp"
 #include "GameFramework/Actor.h"
 #include "Runtime/Engine/Classes/Engine/Texture2D.h"
+#include "Runtime/Engine/Classes/Engine/GameInstance.h"
+#include "Components/StaticMeshComponent.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "WebcamReader.generated.h"
 
 UCLASS()
 class OPENCV_API AWebcamReader : public AActor
 {
 	GENERATED_BODY()
-
 public:
+	// Useful references
+	UGameInstance* GameInstance = NULL;
+	UStaticMeshComponent* Head = NULL;
+	UMaterialInstanceDynamic* DynamicMaterial = NULL;
+
 	// Sets default values for this actor's properties
 	AWebcamReader();
 
@@ -23,8 +30,6 @@ public:
 
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
-
-	void TurnCameraOn();
 
 	// The device ID opened by the Video Stream
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
@@ -49,6 +54,8 @@ public:
 	// Blueprint Event called every time the video frame is updated
 	UFUNCTION(BlueprintImplementableEvent, Category = Webcam)
 	void OnNextVideoFrame();
+
+	void OnNextFrame();
 
 	// OpenCV fields
 	cv::Mat frame;
@@ -75,6 +82,8 @@ public:
 	// The current data array
 	UPROPERTY(BlueprintReadOnly, Category = Webcam)
 	TArray<FColor> Data;
+
+	void SetGameInstance(UGameInstance*);
 
 protected:
 	// Use this function to update the texture rects you want to change:

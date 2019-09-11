@@ -7,6 +7,12 @@
 #include "Engine/Engine.h"
 #include "GameFramework/PlayerController.h"
 #include "WebcamReader.h"
+#include "Runtime/Engine/Classes/Components/PrimitiveComponent.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
+#include "ConstructorHelpers.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "Components/StaticMeshComponent.h"
+#include "AViSCharacter.h"
 #include "AViSGameInstance.generated.h"
 
 UCLASS()
@@ -14,7 +20,14 @@ class AVIS_API UAViSGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 private:
+	UMaterial* m;
 	AWebcamReader* cr = NULL;
+	UMaterialInstanceDynamic* dm;
+	APawn* p;
+	AAViSCharacter* Character;
+	UMaterial* testMaterial0;
+
+	class UStaticMeshComponent* head = NULL;
 public:
 	UAViSGameInstance(const FObjectInitializer & ObjectInitializer);
 	virtual void Init();
@@ -27,4 +40,7 @@ public:
 
 	UFUNCTION(Exec)
 	void TurnCameraOff();
+
+	UFUNCTION(Exec)
+	void ChangeMaterial();
 };

@@ -32,71 +32,59 @@ void AWebcamReader::BeginPlay()
 	UE_LOG(LogTemp, Warning, TEXT("WebcamReader BeginPlay"));
 
 	// Open the stream
-	/*if (!HasAuthority() && !IsRunningDedicatedServer())
-	{*/
-		stream.open(CameraID);
-		if (stream.isOpened())
-		{
-			// Initialize stream
-			isStreamOpen = true;
-			UpdateFrame();
-			VideoSize = FVector2D(frame.cols, frame.rows);
-			size = cv::Size(ResizeDeminsions.X, ResizeDeminsions.Y);
-			VideoTexture = UTexture2D::CreateTransient(VideoSize.X, VideoSize.Y);
-			VideoTexture->UpdateResource();
-			VideoUpdateTextureRegion = new FUpdateTextureRegion2D(0, 0, 0, 0, VideoSize.X, VideoSize.Y);
+	stream.open(CameraID);
+	if (stream.isOpened())
+	{
+		// Initialize stream
+		isStreamOpen = true;
+		UpdateFrame();
+		VideoSize = FVector2D(frame.cols, frame.rows);
+		size = cv::Size(ResizeDeminsions.X, ResizeDeminsions.Y);
+		VideoTexture = UTexture2D::CreateTransient(VideoSize.X, VideoSize.Y);
+		VideoTexture->UpdateResource();
+		VideoUpdateTextureRegion = new FUpdateTextureRegion2D(0, 0, 0, 0, VideoSize.X, VideoSize.Y);
 
-			// Initialize data array
-			Data.Init(FColor(0, 0, 0, 255), VideoSize.X * VideoSize.Y);
+		// Initialize data array
+		Data.Init(FColor(0, 0, 0, 255), VideoSize.X * VideoSize.Y);
 
-			// Do first frame
-			DoProcessing();
-			UpdateTexture();
-			OnNextVideoFrame();
-		}
-	// }
+		// Do first frame
+		DoProcessing();
+		UpdateTexture();
+		OnNextVideoFrame();
+		OnNextFrame();
+	}
 }
 
 // Called every frame
 void AWebcamReader::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
- 
-	/*if (!HasAuthority() && !IsRunningDedicatedServer())
-	{*/
-		RefreshTimer += DeltaTime;
-		if (isStreamOpen && RefreshTimer >= 1.0f / RefreshRate)
-		{
-			RefreshTimer -= 1.0f / RefreshRate;
-			UpdateFrame();
-			DoProcessing();
-			UpdateTexture();
-			OnNextVideoFrame();
-		}
-	// }
-}
 
-void AWebcamReader::TurnCameraOn()
-{
-	
+	RefreshTimer += DeltaTime;
+	if (isStreamOpen && RefreshTimer >= 1.0f / RefreshRate)
+	{
+		RefreshTimer -= 1.0f / RefreshRate;
+		UpdateFrame();
+		DoProcessing();
+		UpdateTexture();
+		OnNextVideoFrame();
+		OnNextFrame();
+	}
 }
  
 void AWebcamReader::UpdateFrame()
 {
-	/*if (!HasAuthority() && !IsRunningDedicatedServer())
-	{*/
-		if (stream.isOpened())
+	if (stream.isOpened())
+	{
+		stream.read(frame);
+		if (ShouldResize)
 		{
-			stream.read(frame);
-			if (ShouldResize)
-			{
-				cv::resize(frame, frame, size);
-			}
+			cv::resize(frame, frame, size);
 		}
-		else {
-			isStreamOpen = false;
-		}
-	// }
+	}
+	else {
+		isStreamOpen = false;
+	}
 }
 
 void AWebcamReader::DoProcessing()
@@ -108,85 +96,98 @@ void AWebcamReader::UpdateTexture()
 {
 	// UE_LOG(LogTemp, Warning, TEXT("WebcamReader UpdateTexture"));
 
-	/*if (!HasAuthority() && !IsRunningDedicatedServer())
-	{*/
-		if (isStreamOpen && frame.data)
+	if (isStreamOpen && frame.data)
+	{
+		// Copy Mat data to Data array
+		for (int y = 0; y < VideoSize.Y; y++)
 		{
-			// Copy Mat data to Data array
-			for (int y = 0; y < VideoSize.Y; y++)
+			for (int x = 0; x < VideoSize.X; x++)
 			{
-				for (int x = 0; x < VideoSize.X; x++)
-				{
-					int i = x + (y * VideoSize.X);
-					Data[i].B = frame.data[i * 3 + 0];
-					Data[i].G = frame.data[i * 3 + 1];
-					Data[i].R = frame.data[i * 3 + 2];
-				}
+				int i = x + (y * VideoSize.X);
+				Data[i].B = frame.data[i * 3 + 0];
+				Data[i].G = frame.data[i * 3 + 1];
+				Data[i].R = frame.data[i * 3 + 2];
 			}
- 
-			// Update texture 2D
-			UpdateTextureRegions(VideoTexture, (int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * VideoSize.X), (uint32)4, (uint8*)Data.GetData(), false);
 		}
-	// }
+ 
+		// Update texture 2D
+		UpdateTextureRegions(VideoTexture, (int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * VideoSize.X), (uint32)4, (uint8*)Data.GetData(), false);
+	}
 }
 
 void AWebcamReader::UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData)
 {
 	// UE_LOG(LogTemp, Warning, TEXT("WebcamReader UpdateTextureRegions"));
 
-	/*if (!HasAuthority() && !IsRunningDedicatedServer())
-	{*/
-		if (Texture->Resource)
+	if (Texture->Resource)
+	{
+		struct FUpdateTextureRegionsData
 		{
-			struct FUpdateTextureRegionsData
+			FTexture2DResource* Texture2DResource;
+			int32 MipIndex;
+			uint32 NumRegions;
+			FUpdateTextureRegion2D* Regions;
+			uint32 SrcPitch;
+			uint32 SrcBpp;
+			uint8* SrcData;
+		};
+ 
+		FUpdateTextureRegionsData* RegionData = new FUpdateTextureRegionsData;
+ 
+		RegionData->Texture2DResource = (FTexture2DResource*)Texture->Resource;
+		RegionData->MipIndex = MipIndex;
+		RegionData->NumRegions = NumRegions;
+		RegionData->Regions = Regions;
+		RegionData->SrcPitch = SrcPitch;
+		RegionData->SrcBpp = SrcBpp;
+		RegionData->SrcData = SrcData;
+ 
+		ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER(
+			UpdateTextureRegionsData,
+			FUpdateTextureRegionsData*, RegionData, RegionData,
+			bool, bFreeData, bFreeData,
 			{
-				FTexture2DResource* Texture2DResource;
-				int32 MipIndex;
-				uint32 NumRegions;
-				FUpdateTextureRegion2D* Regions;
-				uint32 SrcPitch;
-				uint32 SrcBpp;
-				uint8* SrcData;
-			};
- 
-			FUpdateTextureRegionsData* RegionData = new FUpdateTextureRegionsData;
- 
-			RegionData->Texture2DResource = (FTexture2DResource*)Texture->Resource;
-			RegionData->MipIndex = MipIndex;
-			RegionData->NumRegions = NumRegions;
-			RegionData->Regions = Regions;
-			RegionData->SrcPitch = SrcPitch;
-			RegionData->SrcBpp = SrcBpp;
-			RegionData->SrcData = SrcData;
- 
-			ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER(
-				UpdateTextureRegionsData,
-				FUpdateTextureRegionsData*, RegionData, RegionData,
-				bool, bFreeData, bFreeData,
+			for (uint32 RegionIndex = 0; RegionIndex < RegionData->NumRegions; ++RegionIndex)
+			{
+				int32 CurrentFirstMip = RegionData->Texture2DResource->GetCurrentFirstMip();
+				if (RegionData->MipIndex >= CurrentFirstMip)
 				{
-				for (uint32 RegionIndex = 0; RegionIndex < RegionData->NumRegions; ++RegionIndex)
-				{
-					int32 CurrentFirstMip = RegionData->Texture2DResource->GetCurrentFirstMip();
-					if (RegionData->MipIndex >= CurrentFirstMip)
-					{
-						RHIUpdateTexture2D(
-							RegionData->Texture2DResource->GetTexture2DRHI(),
-							RegionData->MipIndex - CurrentFirstMip,
-							RegionData->Regions[RegionIndex],
-							RegionData->SrcPitch,
-							RegionData->SrcData
-							+ RegionData->Regions[RegionIndex].SrcY * RegionData->SrcPitch
-							+ RegionData->Regions[RegionIndex].SrcX * RegionData->SrcBpp
-							);
-					}
+					RHIUpdateTexture2D(
+						RegionData->Texture2DResource->GetTexture2DRHI(),
+						RegionData->MipIndex - CurrentFirstMip,
+						RegionData->Regions[RegionIndex],
+						RegionData->SrcPitch,
+						RegionData->SrcData
+						+ RegionData->Regions[RegionIndex].SrcY * RegionData->SrcPitch
+						+ RegionData->Regions[RegionIndex].SrcX * RegionData->SrcBpp
+						);
 				}
-				if (bFreeData)
-				{
-					FMemory::Free(RegionData->Regions);
-					FMemory::Free(RegionData->SrcData);
-				}
-				delete RegionData;
-			});
-		}
-	//}
+			}
+			if (bFreeData)
+			{
+				FMemory::Free(RegionData->Regions);
+				FMemory::Free(RegionData->SrcData);
+			}
+			delete RegionData;
+		});
+	}
+}
+
+void AWebcamReader::SetGameInstance(UGameInstance* gi)
+{
+	GameInstance = gi;
+}
+
+//void AWebcamReader::SetCallback(void (*cb)()) {
+//	void (*Callback)() = cb;
+//}
+
+void AWebcamReader::OnNextFrame()
+{
+	UE_LOG(LogTemp, Warning, TEXT("On Next Frame"));
+
+	if (DynamicMaterial != NULL && VideoTexture != NULL)
+	{
+		DynamicMaterial->SetTextureParameterValue("Texture", VideoTexture);
+	}
 }
