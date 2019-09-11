@@ -52,21 +52,13 @@ void UAViSGameInstance::TurnCameraOn()
 	cr = (AWebcamReader*) GetWorld()->SpawnActor(AWebcamReader::StaticClass());
 	cr->SetGameInstance(this);
 
-	// Get refference to Avatar
-	p = GetFirstLocalPlayerController()->AcknowledgedPawn;
-
-	// Get reference to avatar dynamic material
-	// dm = p->Face;
-
-	// Create Dynamic Material Instance
-	dm = UMaterialInstanceDynamic::Create(m, p);
-	
-	// Set dynamic material to avatar mesh
-	head = (UStaticMeshComponent*) p->GetDefaultSubobjectByName(TEXT("Head"));
-	head->SetMaterial(0, dm);
-
+	// Works but frames are not replicated
+	Character = (AAViSCharacter*) GetFirstLocalPlayerController()->AcknowledgedPawn;
+	Character->DynamicFace = UMaterialInstanceDynamic::Create(m, Character);
+	head = (UStaticMeshComponent*)Character->GetDefaultSubobjectByName(TEXT("Head"));
+	head->SetMaterial(0, Character->DynamicFace);
 	cr->Head = head;
-	cr->DynamicMaterial = dm;
+	cr->DynamicMaterial = Character->DynamicFace;
 }
 
 void UAViSGameInstance::TurnCameraOff()

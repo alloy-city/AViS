@@ -13,13 +13,6 @@ UCLASS(config=Game)
 class AAViSCharacter : public ACharacter
 {
 	GENERATED_BODY()
-	// SUPER IMPORTANT: The Face
-	// UPROPERTY(Replicated)
-	UMaterialInstanceDynamic* Face;
-
-	// UPROPERTY(Replicated)
-	// int yo = 0;
-
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	class USkeletalMeshComponent* Mesh1P;
@@ -54,6 +47,11 @@ class AAViSCharacter : public ACharacter
 
 public:
 	AAViSCharacter();
+
+	// SUPER IMPORTANT: The Face
+	// UPROPERTY(Replicated)
+	UMaterialInstanceDynamic* DynamicFace;
+	// UMaterial* Face;
 
 protected:
 	virtual void BeginPlay();
