@@ -25,3 +25,22 @@ void UAViSGameInstance::Join(const FString& Address)
 
 	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
 }
+
+void UAViSGameInstance::TurnCameraOn()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Turn camera ON"));
+
+	cr = (AWebcamReader*) GetWorld()->SpawnActor(AWebcamReader::StaticClass());
+}
+
+void UAViSGameInstance::TurnCameraOff()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Turn camera OFF"));
+
+	cr->stream.release();
+
+	if (GetWorld()->DestroyActor(cr))
+	{
+		cr = NULL;
+	}
+}
