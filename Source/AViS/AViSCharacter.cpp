@@ -301,3 +301,8 @@ void AAViSCharacter::LookUpAtRate(float Rate)
 //	
 //	return false;
 //}
+
+//void AAViSCharacter::MulticastSend()
+//{
+//	UE_LOG(LogTemp, Warning, TEXT("Multicast Send"));
+//}

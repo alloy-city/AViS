@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "MovingPlatform.h"
+#include "UnrealNetwork.h"
 #include "AViSCharacter.generated.h"
 
 class UInputComponent;
@@ -48,10 +49,23 @@ class AAViSCharacter : public ACharacter
 public:
 	AAViSCharacter();
 
+	/* ------- RPCS -------
+	UFUNCTION(Exec)
+	void Origin();
+
+	UFUNCTION(Server, WithValidation)
+	void Send();
+
+	UFUNCTION(NetMulticast)
+	void MulticastSend();
+	/* ------- RPCS ------- */
+
 	// SUPER IMPORTANT: The Face
-	// UPROPERTY(Replicated)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	UMaterialInstanceDynamic* DynamicFace;
-	// UMaterial* Face;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	UMaterial* Face;
 
 protected:
 	virtual void BeginPlay();

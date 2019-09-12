@@ -13,6 +13,7 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Components/StaticMeshComponent.h"
 #include "AViSCharacter.h"
+#include "UnrealNetwork.h"
 #include "AViSGameInstance.generated.h"
 
 UCLASS()

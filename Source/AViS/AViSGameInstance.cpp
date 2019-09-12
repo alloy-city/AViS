@@ -52,9 +52,10 @@ void UAViSGameInstance::TurnCameraOn()
 	cr = (AWebcamReader*) GetWorld()->SpawnActor(AWebcamReader::StaticClass());
 	cr->SetGameInstance(this);
 
-	// Works but frames are not replicated
+	// TODO: replicate face
 	Character = (AAViSCharacter*) GetFirstLocalPlayerController()->AcknowledgedPawn;
-	Character->DynamicFace = UMaterialInstanceDynamic::Create(m, Character);
+	Character->Face = m;
+	Character->DynamicFace = UMaterialInstanceDynamic::Create(Character->Face, Character);
 	head = (UStaticMeshComponent*)Character->GetDefaultSubobjectByName(TEXT("Head"));
 	head->SetMaterial(0, Character->DynamicFace);
 	cr->Head = head;

@@ -71,7 +71,7 @@ void AWebcamReader::Tick( float DeltaTime )
 		OnNextFrame();
 	}
 }
- 
+
 void AWebcamReader::UpdateFrame()
 {
 	if (stream.isOpened())
