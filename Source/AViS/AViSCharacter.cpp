@@ -118,14 +118,6 @@ void AAViSCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
-	// Bind fire event
-	// PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AAViSCharacter::OnFire);
-
-	// Enable touchscreen input
-	// EnableTouchscreenMovement(PlayerInputComponent);
-
-	// PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AAViSCharacter::OnResetVR);
-
 	// Bind movement events
 	PlayerInputComponent->BindAxis("MoveForward", this, &AAViSCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AAViSCharacter::MoveRight);
@@ -138,124 +130,6 @@ void AAViSCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AAViSCharacter::LookUpAtRate);
 }
-
-/*
-void AAViSCharacter::OnFire()
-{
-	// try and fire a projectile
-	if (ProjectileClass != NULL)
-	{
-		UWorld* const World = GetWorld();
-		if (World != NULL)
-		{
-			if (bUsingMotionControllers)
-			{
-				const FRotator SpawnRotation = VR_MuzzleLocation->GetComponentRotation();
-				const FVector SpawnLocation = VR_MuzzleLocation->GetComponentLocation();
-				World->SpawnActor<AAViSProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
-			}
-			else
-			{
-				const FRotator SpawnRotation = GetControlRotation();
-				// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-				const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
-
-				//Set Spawn Collision Handling Override
-				FActorSpawnParameters ActorSpawnParams;
-				ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-
-				// spawn the projectile at the muzzle
-				World->SpawnActor<AAViSProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-			}
-		}
-	}
-
-	// try and play the sound if specified
-	if (FireSound != NULL)
-	{
-		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-	}
-
-	// try and play a firing animation if specified
-	if (FireAnimation != NULL)
-	{
-		// Get the animation object for the arms mesh
-		UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
-		if (AnimInstance != NULL)
-		{
-			AnimInstance->Montage_Play(FireAnimation, 1.f);
-		}
-	}
-}
-*/
-
-//void AAViSCharacter::OnResetVR()
-//{
-//	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
-//}
-
-//void AAViSCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-//{
-//	if (TouchItem.bIsPressed == true)
-//	{
-//		return;
-//	}
-//	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
-//	{
-//		OnFire();
-//	}
-//	TouchItem.bIsPressed = true;
-//	TouchItem.FingerIndex = FingerIndex;
-//	TouchItem.Location = Location;
-//	TouchItem.bMoved = false;
-//}
-//
-//void AAViSCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-//{
-//	if (TouchItem.bIsPressed == false)
-//	{
-//		return;
-//	}
-//	TouchItem.bIsPressed = false;
-//}
-
-//Commenting this section out to be consistent with FPS BP template.
-//This allows the user to turn without using the right virtual joystick
-
-//void AAViSCharacter::TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location)
-//{
-//	if ((TouchItem.bIsPressed == true) && (TouchItem.FingerIndex == FingerIndex))
-//	{
-//		if (TouchItem.bIsPressed)
-//		{
-//			if (GetWorld() != nullptr)
-//			{
-//				UGameViewportClient* ViewportClient = GetWorld()->GetGameViewport();
-//				if (ViewportClient != nullptr)
-//				{
-//					FVector MoveDelta = Location - TouchItem.Location;
-//					FVector2D ScreenSize;
-//					ViewportClient->GetViewportSize(ScreenSize);
-//					FVector2D ScaledDelta = FVector2D(MoveDelta.X, MoveDelta.Y) / ScreenSize;
-//					if (FMath::Abs(ScaledDelta.X) >= 4.0 / ScreenSize.X)
-//					{
-//						TouchItem.bMoved = true;
-//						float Value = ScaledDelta.X * BaseTurnRate;
-//						AddControllerYawInput(Value);
-//					}
-//					if (FMath::Abs(ScaledDelta.Y) >= 4.0 / ScreenSize.Y)
-//					{
-//						TouchItem.bMoved = true;
-//						float Value = ScaledDelta.Y * BaseTurnRate;
-//						AddControllerPitchInput(Value);
-//					}
-//					TouchItem.Location = Location;
-//				}
-//				TouchItem.Location = Location;
-//			}
-//		}
-//	}
-//}
 
 void AAViSCharacter::MoveForward(float Value)
 {
@@ -287,22 +161,101 @@ void AAViSCharacter::LookUpAtRate(float Rate)
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-//bool AAViSCharacter::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
-//{
-//	if (FPlatformMisc::SupportsTouchInput() || GetDefault<UInputSettings>()->bUseMouseForTouch)
-//	{
-//		PlayerInputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AAViSCharacter::BeginTouch);
-//		PlayerInputComponent->BindTouch(EInputEvent::IE_Released, this, &AAViSCharacter::EndTouch);
-//
-//		//Commenting this out to be more consistent with FPS BP template.
-//		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &AAViSCharacter::TouchUpdate);
-//		return true;
-//	}
-//	
-//	return false;
-//}
+void AAViSCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
 
-//void AAViSCharacter::MulticastSend()
-//{
-//	UE_LOG(LogTemp, Warning, TEXT("Multicast Send"));
-//}
+	RefreshTimer += DeltaTime;
+	if (Camera != NULL && Camera->IsStreamOpen && RefreshTimer >= 1.0f / RefreshRate)
+	{
+		RefreshTimer -= 1.0f / RefreshRate;
+		Camera->UpdateFrame();
+		
+		UpdateTexture();
+	}
+}
+
+void AAViSCharacter::UpdateTexture()
+{
+	// UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::UpdateTexture"));
+
+	if (Camera->IsStreamOpen && Camera->Frame.data)
+	{
+		// Copy Mat data to Data array
+		for (int y = 0; y < Camera->VideoSize.Y; y++)
+		{
+			for (int x = 0; x < Camera->VideoSize.X; x++)
+			{
+				int i = x + (y * Camera->VideoSize.X);
+				FaceData[i].B = Camera->Frame.data[i * 3 + 0];
+				FaceData[i].G = Camera->Frame.data[i * 3 + 1];
+				FaceData[i].R = Camera->Frame.data[i * 3 + 2];
+			}
+		}
+
+		// Update texture 2D
+		UpdateTextureRegions(VideoTexture, (int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * Camera->VideoSize.X), (uint32)4, (uint8*)FaceData.GetData(), false);
+	}
+}
+
+void AAViSCharacter::UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData)
+{
+	UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::UpdateTextureRegions"));
+
+	if (Texture && Texture->Resource)
+	{
+		struct FUpdateTextureRegionsData
+		{
+			FTexture2DResource* Texture2DResource;
+			int32 MipIndex;
+			uint32 NumRegions;
+			FUpdateTextureRegion2D* Regions;
+			uint32 SrcPitch;
+			uint32 SrcBpp;
+			uint8* SrcData;
+		};
+
+		FUpdateTextureRegionsData* RegionData = new FUpdateTextureRegionsData;
+
+		RegionData->Texture2DResource = (FTexture2DResource*)Texture->Resource;
+		RegionData->MipIndex = MipIndex;
+		RegionData->NumRegions = NumRegions;
+		RegionData->Regions = Regions;
+		RegionData->SrcPitch = SrcPitch;
+		RegionData->SrcBpp = SrcBpp;
+		RegionData->SrcData = SrcData;
+
+		ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER(
+			UpdateTextureRegionsData,
+			FUpdateTextureRegionsData*, RegionData, RegionData,
+			bool, bFreeData, bFreeData,
+			{
+				for (uint32 RegionIndex = 0; RegionIndex < RegionData->NumRegions; ++RegionIndex)
+				{
+					int32 CurrentFirstMip = RegionData->Texture2DResource->GetCurrentFirstMip();
+					if (RegionData->MipIndex >= CurrentFirstMip)
+					{
+						RHIUpdateTexture2D(
+							RegionData->Texture2DResource->GetTexture2DRHI(),
+							RegionData->MipIndex - CurrentFirstMip,
+							RegionData->Regions[RegionIndex],
+							RegionData->SrcPitch,
+							RegionData->SrcData
+							+ RegionData->Regions[RegionIndex].SrcY * RegionData->SrcPitch
+							+ RegionData->Regions[RegionIndex].SrcX * RegionData->SrcBpp
+							);
+					}
+				}
+				if (bFreeData)
+				{
+					FMemory::Free(RegionData->Regions);
+					FMemory::Free(RegionData->SrcData);
+				}
+				delete RegionData;
+			}
+		);
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("VideoTexture NOT SET"));
+	}
+}

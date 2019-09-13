@@ -48,15 +48,9 @@ void UAViSGameInstance::TurnCameraOn()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Turn camera ON"));
 
-	// Instantiate webcam reader
-	Camera = new Webcam(&FaceData);
-
-	// TODO: replicate face
 	Character = (AAViSCharacter*) GetFirstLocalPlayerController()->AcknowledgedPawn;
-	Character->Face = m;
-	Character->DynamicFace = UMaterialInstanceDynamic::Create(Character->Face, Character);
-	head = (UStaticMeshComponent*)Character->GetDefaultSubobjectByName(TEXT("Head"));
-	head->SetMaterial(0, Character->DynamicFace);
+	Camera = new Webcam(&Character->FaceData);
+	Character->Camera = Camera;
 }
 
 void UAViSGameInstance::TurnCameraOff()
@@ -68,13 +62,5 @@ void UAViSGameInstance::TurnCameraOff()
 
 void UAViSGameInstance::ChangeMaterial()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Change material"));
-
-	if (head == NULL)
-	{
-		p = GetFirstLocalPlayerController()->AcknowledgedPawn;
-		head = (UStaticMeshComponent*)p->GetDefaultSubobjectByName(TEXT("Head"));
-	}
-
-	head->SetMaterial(0, testMaterial0);
+	UE_LOG(LogTemp, Warning, TEXT("Change Material"));
 }

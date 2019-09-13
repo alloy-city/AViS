@@ -5,7 +5,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "MovingPlatform.h"
+#include "WebcamReader.h"
 #include "UnrealNetwork.h"
+//#include "GameFramework/Actor.h"
+//#include "Runtime/Engine/Classes/Engine/Texture2D.h"
+//#include "Components/StaticMeshComponent.h"
+//#include "Materials/MaterialInstanceDynamic.h"
 #include "AViSCharacter.generated.h"
 
 class UInputComponent;
@@ -48,6 +53,18 @@ class AAViSCharacter : public ACharacter
 
 public:
 	AAViSCharacter();
+	virtual void Tick(float DeltaSeconds) override;
+	void UpdateTexture();
+	void UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData);
+
+	Webcam* Camera = NULL;
+	float RefreshTimer = 0.0;
+	float RefreshRate = 2;
+
+	UPROPERTY(BlueprintReadOnly, Category = Webcam)
+	UTexture2D* VideoTexture;
+
+	FUpdateTextureRegion2D* VideoUpdateTextureRegion;
 
 	/* ------- RPCS -------
 	UFUNCTION(Exec)
@@ -65,7 +82,7 @@ public:
 	UMaterialInstanceDynamic* DynamicFace;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	UMaterial* Face;
+	TArray<FColor> FaceData;
 
 protected:
 	virtual void BeginPlay();
@@ -100,13 +117,6 @@ public:
 	uint32 bUsingMotionControllers : 1;
 
 protected:
-	
-	/** Fires a projectile. */
-	// void OnFire();
-
-	/** Resets HMD orientation and position in VR. */
-	// void OnResetVR();
-
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);
 
@@ -124,34 +134,10 @@ protected:
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
 	 */
 	void LookUpAtRate(float Rate);
-
-	/*
-	struct TouchData
-	{
-		TouchData() { bIsPressed = false;Location=FVector::ZeroVector;}
-		bool bIsPressed;
-		ETouchIndex::Type FingerIndex;
-		FVector Location;
-		bool bMoved;
-	};
-	*/
-	// void BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-	// void EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-	// void TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location);
-	// TouchData TouchItem;
 	
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
-	// End of APawn interface
-
-	/* 
-	 * Configures input for touchscreen devices if there is a valid touch interface for doing so 
-	 *
-	 * @param	InputComponent	The input component pointer to bind controls to
-	 * @returns true if touch controls were enabled.
-	 */
-	// bool EnableTouchscreenMovement(UInputComponent* InputComponent);
 
 public:
 	/** Returns Mesh1P subobject **/

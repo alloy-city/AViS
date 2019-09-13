@@ -21,10 +21,8 @@ public:
 	cv::Mat Frame;
 	cv::VideoCapture Stream;
 	cv::Size Size;
-	TArray<FColor>* FrameData;
+	TArray<FColor>* FaceData;
 
 	// Methods
 	void UpdateFrame();
-	void DoProcessing();
-	void OnNextFrame();
 };

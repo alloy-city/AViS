@@ -3,10 +3,11 @@
 #include "OpenCV.h"
 #include "WebcamReader.h"
 
-Webcam::Webcam(TArray<FColor>* fd) {
-	FrameData = fd;
-
+Webcam::Webcam(TArray<FColor>* fd)
+{
 	UE_LOG(LogTemp, Warning, TEXT("Webcam constructor"));
+
+	FaceData = fd;
 
 	// Initialize OpenCV and webcam properties
 	CameraID = 0;
@@ -30,16 +31,14 @@ Webcam::Webcam(TArray<FColor>* fd) {
 		Size = cv::Size(ResizeDimensions.X, ResizeDimensions.Y);
 
 		// Initialize data array
-		FrameData->Init(FColor(0, 0, 0, 255), VideoSize.X * VideoSize.Y);
-
-		// Do first frame
-		DoProcessing();
-		OnNextFrame();
+		FaceData->Init(FColor(0, 0, 0, 255), VideoSize.X * VideoSize.Y);
 	}
 }
 
 void Webcam::UpdateFrame()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Webcam::UpdateFrame"));
+
 	if (Stream.isOpened())
 	{
 		Stream.read(Frame);
@@ -51,14 +50,4 @@ void Webcam::UpdateFrame()
 	else {
 		IsStreamOpen = false;
 	}
-}
-
-void Webcam::DoProcessing()
-{
-
-}
-
-void Webcam::OnNextFrame()
-{
-	UE_LOG(LogTemp, Warning, TEXT("On Next Frame"));
 }

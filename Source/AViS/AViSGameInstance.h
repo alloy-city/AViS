@@ -24,12 +24,9 @@ private:
 	UMaterial* m;
 	Webcam* Camera;
 	UMaterialInstanceDynamic* dm;
-	APawn* p;
 	AAViSCharacter* Character;
 	UMaterial* testMaterial0;
-	TArray<FColor> FaceData;
 
-	class UStaticMeshComponent* head = NULL;
 public:
 	UAViSGameInstance(const FObjectInitializer & ObjectInitializer);
 	virtual void Init();
