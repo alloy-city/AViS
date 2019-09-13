@@ -48,9 +48,8 @@ void UAViSGameInstance::TurnCameraOn()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Turn camera ON"));
 
-	// Spawn webcam reader
-	cr = (AWebcamReader*) GetWorld()->SpawnActor(AWebcamReader::StaticClass());
-	cr->SetGameInstance(this);
+	// Instantiate webcam reader
+	Camera = new Webcam(&FaceData);
 
 	// TODO: replicate face
 	Character = (AAViSCharacter*) GetFirstLocalPlayerController()->AcknowledgedPawn;
@@ -58,20 +57,13 @@ void UAViSGameInstance::TurnCameraOn()
 	Character->DynamicFace = UMaterialInstanceDynamic::Create(Character->Face, Character);
 	head = (UStaticMeshComponent*)Character->GetDefaultSubobjectByName(TEXT("Head"));
 	head->SetMaterial(0, Character->DynamicFace);
-	cr->Head = head;
-	cr->DynamicMaterial = Character->DynamicFace;
 }
 
 void UAViSGameInstance::TurnCameraOff()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Turn camera OFF"));
 
-	cr->stream.release();
-
-	if (GetWorld()->DestroyActor(cr))
-	{
-		cr = NULL;
-	}
+	Camera->Stream.release();
 }
 
 void UAViSGameInstance::ChangeMaterial()

@@ -1,101 +1,30 @@
-
 #pragma once
- 
+
 #include "opencv2/core.hpp"
 #include "opencv2/highgui.hpp"	
 #include "opencv2/imgproc.hpp"
 #include "opencv2/videoio.hpp"
-#include "GameFramework/Actor.h"
-#include "Runtime/Engine/Classes/Engine/Texture2D.h"
-#include "Runtime/Engine/Classes/Engine/GameInstance.h"
-#include "Components/StaticMeshComponent.h"
-#include "Materials/MaterialInstanceDynamic.h"
-#include "UObject/ConstructorHelpers.h"
-#include "WebcamReader.generated.h"
+#include "Runtime/Core/Public/Math/Color.h"
+#include "Runtime/Core/Public/Math/Vector2D.h"
 
-UCLASS()
-class OPENCV_API AWebcamReader : public AActor
+class OPENCV_API Webcam
 {
-	GENERATED_BODY()
 public:
-	// Useful references
-	UGameInstance* GameInstance = NULL;
-	UStaticMeshComponent* Head = NULL;
-	UMaterialInstanceDynamic* DynamicMaterial = NULL;
-	TSubclassOf<APawn> DefaultPawnClass;
+	// Constructor
+	Webcam(TArray<FColor>*);
 
-	// Sets default values for this actor's properties
-	AWebcamReader();
+	// Propreties
+	bool ShouldResize, IsStreamOpen;
+	float RefreshRate, RefreshTimer;
+	FVector2D VideoSize, ResizeDimensions;
+	int8 CameraID;
+	cv::Mat Frame;
+	cv::VideoCapture Stream;
+	cv::Size Size;
+	TArray<FColor>* FrameData;
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
-
-	// The device ID opened by the Video Stream
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
-	int32 CameraID;
-
-	// If the webcam images should be resized every frame
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
-	bool ShouldResize;
-
-	// The targeted resize width and height (width, height)
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
-	FVector2D ResizeDeminsions;
-
-	// The rate at which the color data array and video texture is updated (in frames per second)
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
-	float RefreshRate;
-
-	// The refresh timer
-	UPROPERTY(BlueprintReadWrite, Category = Webcam)
-	float RefreshTimer;
-
-	// Blueprint Event called every time the video frame is updated
-	UFUNCTION(BlueprintImplementableEvent, Category = Webcam)
-	void OnNextVideoFrame();
-
-	void OnNextFrame();
-
-	// OpenCV fields
-	cv::Mat frame;
-	// cv::Mat SmallFrame;
-	// cv::Mat greyFrame;
-	cv::VideoCapture stream;
-	cv::Size size;
-
-	// OpenCV prototypes
+	// Methods
 	void UpdateFrame();
 	void DoProcessing();
-	void UpdateTexture();
-
-	// If the stream has succesfully opened yet
-	UPROPERTY(BlueprintReadOnly, Category = Webcam)
-	bool isStreamOpen;
-
-	// The videos width and height (width, height)
-	UPROPERTY(BlueprintReadWrite, Category = Webcam)
-	FVector2D VideoSize;
-
-	// The current video frame's corresponding texture
-	UPROPERTY(BlueprintReadOnly, Category = Webcam)
-	UTexture2D* VideoTexture;
-
-	// The current data array
-	UPROPERTY(BlueprintReadOnly, Category = Webcam)
-	TArray<FColor> Data;
-
-	void SetGameInstance(UGameInstance*);
-
-protected:
-	// Use this function to update the texture rects you want to change:
-	// NOTE: There is a method called UpdateTextureRegions in UTexture2D but it is compiled WITH_EDITOR and is not marked as ENGINE_API so it cannot be linked
-	// from plugins.
-	// FROM: https://wiki.unrealengine.com/Dynamic_Textures
-	void UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData);
-
-	// Pointer to update texture region 2D struct
-	FUpdateTextureRegion2D* VideoUpdateTextureRegion;
+	void OnNextFrame();
 };

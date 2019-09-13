@@ -22,11 +22,12 @@ class AVIS_API UAViSGameInstance : public UGameInstance
 	GENERATED_BODY()
 private:
 	UMaterial* m;
-	AWebcamReader* cr = NULL;
+	Webcam* Camera;
 	UMaterialInstanceDynamic* dm;
 	APawn* p;
 	AAViSCharacter* Character;
 	UMaterial* testMaterial0;
+	TArray<FColor> FaceData;
 
 	class UStaticMeshComponent* head = NULL;
 public:
