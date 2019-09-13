@@ -170,8 +170,9 @@ void AAViSCharacter::Tick(float DeltaTime)
 	{
 		RefreshTimer -= 1.0f / RefreshRate;
 		Camera->UpdateFrame();
-		
 		UpdateTexture();
+		ServerSend(FaceData);
+		// ServerSend(FaceData[0]);
 	}
 }
 
@@ -194,14 +195,17 @@ void AAViSCharacter::UpdateTexture()
 		}
 
 		// Update texture 2D
-		UpdateTextureRegions(VideoTexture, (int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * Camera->VideoSize.X), (uint32)4, (uint8*)FaceData.GetData(), false);
+		// UpdateTextureRegions(VideoTexture, (int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * Camera->VideoSize.X), (uint32)4, (uint8*)FaceData.GetData(), false);
 	}
 }
 
+// Try to update texture in BP, when Multicast event arrives from the server
+// Look into UTexture2D::UpdateTextureRegions byte array replication is figured out
 void AAViSCharacter::UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData)
 {
 	UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::UpdateTextureRegions"));
 
+	/*
 	if (Texture && Texture->Resource)
 	{
 		struct FUpdateTextureRegionsData
@@ -258,4 +262,5 @@ void AAViSCharacter::UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, u
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("VideoTexture NOT SET"));
 	}
+	*/
 }

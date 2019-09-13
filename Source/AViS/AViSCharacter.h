@@ -61,17 +61,18 @@ public:
 	float RefreshTimer = 0.0;
 	float RefreshRate = 2;
 
-	UPROPERTY(BlueprintReadOnly, Category = Webcam)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Webcam)
 	UTexture2D* VideoTexture;
 
 	FUpdateTextureRegion2D* VideoUpdateTextureRegion;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void ServerSend(const TArray<FColor>& Bitmap);
+	// void ServerSend(FColor c);
+	
 	/* ------- RPCS -------
 	UFUNCTION(Exec)
 	void Origin();
-
-	UFUNCTION(Server, WithValidation)
-	void Send();
 
 	UFUNCTION(NetMulticast)
 	void MulticastSend();
