@@ -22,6 +22,10 @@ AWebcamReader::AWebcamReader()
 	RefreshTimer = 0.0f;
 	stream = cv::VideoCapture();
 	frame = cv::Mat();
+
+	// Get AViSAvatar BP
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/Blueprints/AViSAvatar"));
+	DefaultPawnClass = PlayerPawnClassFinder.Class;
 }
 
 // Called when the game starts or when spawned
@@ -89,9 +93,10 @@ void AWebcamReader::UpdateFrame()
 
 void AWebcamReader::DoProcessing()
 {
-
+	// cv::resize(frame, SmallFrame, cv::Size(), 0.5, 0.5);
+	// cv::cvtColor(frame, greyFrame, cv::COLOR_BGR2GRAY);
 }
- 
+
 void AWebcamReader::UpdateTexture()
 {
 	// UE_LOG(LogTemp, Warning, TEXT("WebcamReader UpdateTexture"));
@@ -185,6 +190,7 @@ void AWebcamReader::SetGameInstance(UGameInstance* gi)
 void AWebcamReader::OnNextFrame()
 {
 	UE_LOG(LogTemp, Warning, TEXT("On Next Frame"));
+	
 
 	if (DynamicMaterial != NULL && VideoTexture != NULL)
 	{

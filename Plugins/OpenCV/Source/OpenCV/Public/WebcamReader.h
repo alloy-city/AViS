@@ -10,6 +10,7 @@
 #include "Runtime/Engine/Classes/Engine/GameInstance.h"
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "UObject/ConstructorHelpers.h"
 #include "WebcamReader.generated.h"
 
 UCLASS()
@@ -21,6 +22,7 @@ public:
 	UGameInstance* GameInstance = NULL;
 	UStaticMeshComponent* Head = NULL;
 	UMaterialInstanceDynamic* DynamicMaterial = NULL;
+	TSubclassOf<APawn> DefaultPawnClass;
 
 	// Sets default values for this actor's properties
 	AWebcamReader();
@@ -59,6 +61,8 @@ public:
 
 	// OpenCV fields
 	cv::Mat frame;
+	// cv::Mat SmallFrame;
+	// cv::Mat greyFrame;
 	cv::VideoCapture stream;
 	cv::Size size;
 
