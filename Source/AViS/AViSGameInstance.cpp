@@ -53,7 +53,7 @@ void UAViSGameInstance::TurnCameraOn()
 
 	// This is not Camera responsibility.
 	// TODO: Create StreamingServer class to listen for incoming connections.
-	Camera->Listen();
+	Camera->StartStreamService();
 
 	Character->Camera = Camera;
 	Character->InformServerCameraIsOn();

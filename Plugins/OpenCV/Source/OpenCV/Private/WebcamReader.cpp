@@ -50,22 +50,32 @@ void Webcam::UpdateFrame()
 	}
 }
 
-void Webcam::Listen()
+// This function is not a member function of the Webcam class
+// It's executed from another thread, so that the stream
+// service doesn't clog the main program.
+void Listen(bool * KeepServing)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Webcam::Listen START"));
+	UE_LOG(LogTemp, Warning, TEXT("THREAD Listen START"));
 
-	// TODO: Spin the listening server in a new thread, otherwise the engine hangs waiting.
-	// while (IsStreamOpen)
-	// {
-		// Listening for TCP/IP connections
-		// Serve video feed to any connection
-	// }
+	std::chrono::milliseconds timespan(2000);
+	while (*KeepServing)
+	{		
+		// TODO: listen to income connections here
+	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Webcam::Listen STOP"));
+	UE_LOG(LogTemp, Warning, TEXT("THREAD Listen STOP"));
+}
+
+void Webcam::StartStreamService()
+{
+	KeepServing = true;
+	StreamServer = std::thread(Listen, &KeepServing);
 }
 
 void Webcam::TurnOff()
 {
+	KeepServing = false;
+	StreamServer.join();
 	Stream.release();
 	delete this;
 }
