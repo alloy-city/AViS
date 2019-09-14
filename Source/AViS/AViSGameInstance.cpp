@@ -50,14 +50,29 @@ void UAViSGameInstance::TurnCameraOn()
 
 	Character = (AAViSCharacter*) GetFirstLocalPlayerController()->AcknowledgedPawn;
 	Camera = new Webcam(&Character->FaceData);
+
+	// This is not Camera responsibility.
+	// TODO: Create StreamingServer class to listen for incoming connections.
+	Camera->Listen();
+
 	Character->Camera = Camera;
+	Character->InformServerCameraIsOn();
 }
 
 void UAViSGameInstance::TurnCameraOff()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Turn camera OFF"));
+	if (Camera)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Turn camera OFF"));
 
-	Camera->Stream.release();
+		Camera->TurnOff();
+		Camera = NULL;
+		Character->InformServerCameraIsOff();
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("My camera is already OFF"));
+		Character->InformServerCameraIsOff();
+	}
 }
 
 void UAViSGameInstance::ChangeMaterial()

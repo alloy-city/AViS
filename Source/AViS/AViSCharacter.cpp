@@ -165,15 +165,13 @@ void AAViSCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	RefreshTimer += DeltaTime;
+	/*RefreshTimer += DeltaTime;
 	if (Camera != NULL && Camera->IsStreamOpen && RefreshTimer >= 1.0f / RefreshRate)
 	{
 		RefreshTimer -= 1.0f / RefreshRate;
 		Camera->UpdateFrame();
 		UpdateTexture();
-		ServerSend(FaceData);
-		// ServerSend(FaceData[0]);
-	}
+	}*/
 }
 
 void AAViSCharacter::UpdateTexture()
@@ -197,6 +195,21 @@ void AAViSCharacter::UpdateTexture()
 		// Update texture 2D
 		// UpdateTextureRegions(VideoTexture, (int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * Camera->VideoSize.X), (uint32)4, (uint8*)FaceData.GetData(), false);
 	}
+}
+
+void AAViSCharacter::ApplyFace()
+{
+	UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::ApplyFace"));
+
+	VideoTexture->UpdateTextureRegions((int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * Camera->VideoSize.X), (uint32)4, (uint8*)FaceData.GetData(), false);
+}
+
+// Should be called by child class only when:
+// 1. is not the server
+// 2. is not possessed by the game instance controller
+void AAViSCharacter::ConnectToFaceFeedSource()
+{
+	UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::ConnectToFaceFeedSource"));
 }
 
 // Try to update texture in BP, when Multicast event arrives from the server

@@ -11,12 +11,10 @@ Webcam::Webcam(TArray<FColor>* fd)
 
 	// Initialize OpenCV and webcam properties
 	CameraID = 0;
-	RefreshRate = 15;
 	IsStreamOpen = false;
 	VideoSize = FVector2D(0, 0);
 	ShouldResize = false;
 	ResizeDimensions = FVector2D(320, 240);
-	RefreshTimer = 0.0f;
 	Stream = cv::VideoCapture();
 	Frame = cv::Mat();
 
@@ -50,4 +48,24 @@ void Webcam::UpdateFrame()
 	else {
 		IsStreamOpen = false;
 	}
+}
+
+void Webcam::Listen()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Webcam::Listen START"));
+
+	// TODO: Spin the listening server in a new thread, otherwise the engine hangs waiting.
+	// while (IsStreamOpen)
+	// {
+		// Listening for TCP/IP connections
+		// Serve video feed to any connection
+	// }
+
+	UE_LOG(LogTemp, Warning, TEXT("Webcam::Listen STOP"));
+}
+
+void Webcam::TurnOff()
+{
+	Stream.release();
+	delete this;
 }

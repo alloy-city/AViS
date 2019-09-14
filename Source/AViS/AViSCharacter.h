@@ -67,16 +67,16 @@ public:
 	FUpdateTextureRegion2D* VideoUpdateTextureRegion;
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void ServerSend(const TArray<FColor>& Bitmap);
-	// void ServerSend(FColor c);
-	
-	/* ------- RPCS -------
-	UFUNCTION(Exec)
-	void Origin();
+	void InformServerCameraIsOn();
 
-	UFUNCTION(NetMulticast)
-	void MulticastSend();
-	/* ------- RPCS ------- */
+	UFUNCTION(BlueprintImplementableEvent)
+	void InformServerCameraIsOff();
+	
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	void ApplyFace();
+
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	void ConnectToFaceFeedSource();
 
 	// SUPER IMPORTANT: The Face
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)

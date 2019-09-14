@@ -15,7 +15,6 @@ public:
 
 	// Propreties
 	bool ShouldResize, IsStreamOpen;
-	float RefreshRate, RefreshTimer;
 	FVector2D VideoSize, ResizeDimensions;
 	int8 CameraID;
 	cv::Mat Frame;
@@ -25,4 +24,6 @@ public:
 
 	// Methods
 	void UpdateFrame();
+	void TurnOff();
+	void Listen();
 };
