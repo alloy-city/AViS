@@ -53,29 +53,26 @@ void Webcam::UpdateFrame()
 // This function is not a member function of the Webcam class
 // It's executed from another thread, so that the stream
 // service doesn't clog the main program.
-void Listen(bool * KeepServing)
-{
-	UE_LOG(LogTemp, Warning, TEXT("THREAD Listen START"));
+// void Listen(bool * KeepServing)
+// {
+	// UE_LOG(LogTemp, Warning, TEXT("THREAD Listen START"));
 
-	std::chrono::milliseconds timespan(2000);
-	while (*KeepServing)
-	{		
+	// std::chrono::milliseconds timespan(2000);
+	// while (*KeepServing)
+	// {		
 		// TODO: listen to income connections here
-	}
+	// }
 
-	UE_LOG(LogTemp, Warning, TEXT("THREAD Listen STOP"));
-}
+	// UE_LOG(LogTemp, Warning, TEXT("THREAD Listen STOP"));
+// }
 
-void Webcam::StartStreamService()
-{
-	KeepServing = true;
-	StreamServer = std::thread(Listen, &KeepServing);
-}
+//void Webcam::StartStreamService()
+//{
+//	KeepServing = true;
+//	// StreamServer = std::thread(Listen, &KeepServing);
+//}
 
 void Webcam::TurnOff()
 {
-	KeepServing = false;
-	StreamServer.join();
 	Stream.release();
-	delete this;
 }

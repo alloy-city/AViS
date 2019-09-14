@@ -1,7 +1,10 @@
 #pragma once
 
+// Move to StreamService class
 #include <iostream>
 #include <thread>
+//
+
 #include "opencv2/core.hpp"
 #include "opencv2/highgui.hpp"	
 #include "opencv2/imgproc.hpp"
@@ -28,5 +31,5 @@ public:
 	// Methods
 	void UpdateFrame();
 	void TurnOff();
-	void StartStreamService();
+	// void StartStreamService();
 };

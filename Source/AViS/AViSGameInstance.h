@@ -7,6 +7,7 @@
 #include "Engine/Engine.h"
 #include "GameFramework/PlayerController.h"
 #include "WebcamReader.h"
+#include "StreamService.h"
 #include "Runtime/Engine/Classes/Components/PrimitiveComponent.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "ConstructorHelpers.h"
@@ -23,6 +24,7 @@ class AVIS_API UAViSGameInstance : public UGameInstance
 private:
 	UMaterial* m;
 	Webcam* Camera;
+	StreamService* SS;
 	UMaterialInstanceDynamic* dm;
 	AAViSCharacter* Character;
 	UMaterial* testMaterial0;
