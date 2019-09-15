@@ -24,7 +24,7 @@ void Decoder::Decode(TArray<uint8>* Buffer)
 		UE_LOG(LogTemp, Warning, TEXT("[Decoder::Decode] Error reading JPG image from buffer"));
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("[Decoder::Decode] Successfully read JPG image from buffer"));
+		// UE_LOG(LogTemp, Warning, TEXT("[Decoder::Decode] Successfully read JPG image from buffer"));
 		cv::imshow("AViS Video Capture Debuggin", decodedImage);
 	}
 }

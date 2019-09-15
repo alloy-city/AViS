@@ -34,7 +34,7 @@ public:
 	std::thread StreamServer;
 	int FrameNumberOfBytes;
 
-	char stackBuffer[2048];
+	char stackBuffer[60000];
 
 	// Methods
 	void UpdateFrame();

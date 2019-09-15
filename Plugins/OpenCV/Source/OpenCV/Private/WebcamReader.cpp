@@ -97,16 +97,16 @@ char* Webcam::GetFrame()
 
 		FrameNumberOfBytes = CompressedFrame.size() * sizeof(uchar);
 
-		UE_LOG(LogTemp, Warning, TEXT("%s bytes"), *FString::Printf(TEXT("%d"), FrameNumberOfBytes));
-
-		char * x = (char*) malloc(FrameNumberOfBytes);
+		// UE_LOG(LogTemp, Warning, TEXT("%s bytes"), *FString::Printf(TEXT("%d"), FrameNumberOfBytes));
+		// char * x = (char*) malloc(FrameNumberOfBytes);
 
 		for (int i=0; i<CompressedFrame.size(); i++)
 		{
-			x[i] = CompressedFrame[i];
+			stackBuffer[i] = CompressedFrame[i];
+			// x[i] = CompressedFrame[i];
 		}
 
-		return x;
+		return stackBuffer;
 	}
 
 	return 0;

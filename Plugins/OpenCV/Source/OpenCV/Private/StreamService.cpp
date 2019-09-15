@@ -41,7 +41,7 @@ void Listen(bool * KeepServing, Webcam* Camera)
 		{
 			char * Frame = Camera->GetFrame();
 			send(client, Frame, Camera->GetFrameNumberOfBytes(), 0);
-			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			std::this_thread::sleep_for(std::chrono::milliseconds(30));
 		}
 
 		closesocket(client);

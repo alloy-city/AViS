@@ -10,7 +10,6 @@
 
 #include <iostream>
 #include <thread>
-#include <thread>
 #include "CoreMinimal.h"
 
 /**

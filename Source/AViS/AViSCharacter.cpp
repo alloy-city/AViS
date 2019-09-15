@@ -83,9 +83,6 @@ AAViSCharacter::AAViSCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
-
-	// Decoder to decompress jpg frames received over network
-	decoder = new Decoder();
 }
 
 void AAViSCharacter::BeginPlay()
@@ -200,15 +197,20 @@ void AAViSCharacter::UpdateTexture()
 	}
 }
 
+void AAViSCharacter::StartDecoder()
+{
+	decoder = new Decoder();
+}
+
 void AAViSCharacter::ApplyFace(TArray<uint8> buffer)
 {
 	// [DONE] 1. Be called by remotely controlled Avatar, upon TCP message received
 	// [DONE] 2. Receive ImageBuffer
 
-	UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::ApplyFace"));
-	UE_LOG(LogTemp, Warning, TEXT("[AAViSCharacter::ApplyFace] Size: %s"), *FString::Printf(TEXT("%d"), buffer.Num()));
+	// UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::ApplyFace"));
+	// UE_LOG(LogTemp, Warning, TEXT("[AAViSCharacter::ApplyFace] Size: %s"), *FString::Printf(TEXT("%d"), buffer.Num()));
 
-	// 3. Decode jpg texture
+	// 3. [DONE] Decode jpg texture
 	decoder->Decode(&buffer);
 	
 	// 4. VideoTexture->UpdateTextureRegions(Decoder.Frame)

@@ -425,7 +425,7 @@ uint32 FTcpSocketWorker::Run()
 				break;
 			}
 
-			ATcpSocketConnection::PrintToConsole(FString::Printf(TEXT("Pending data %d"), (int32)PendingDataSize), false);
+			// ATcpSocketConnection::PrintToConsole(FString::Printf(TEXT("Pending data %d"), (int32)PendingDataSize), false);
 
 			receivedData.SetNumUninitialized(BytesReadTotal + PendingDataSize);
 
