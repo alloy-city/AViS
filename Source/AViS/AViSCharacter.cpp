@@ -201,7 +201,29 @@ void AAViSCharacter::ApplyFace()
 {
 	UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::ApplyFace"));
 
-	VideoTexture->UpdateTextureRegions((int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * Camera->VideoSize.X), (uint32)4, (uint8*)FaceData.GetData(), false);
+	// TODO:
+	// 1. Be called by non-possessed Avatar, upon TCP message received
+	// 2. Receive nSize and ImageBuffer from BP TCP plugin, at AViSAvatar.blueprint, as parameters
+	// 3. Decode jpg texture with OpenCV, available at Camera
+	// 4. Create UTexture2d from cv::Mat
+	// 5. Apply UTexture2d to head.
+
+	/* For the decoding step (3)
+	int nSize = ...       // Size of buffer
+	uchar* pcBuffer = ...    // Raw buffer data
+
+	// Create a Size(1, nSize) Mat object of 8-bit, single-byte elements
+	Mat rawData( 1, nSize, CV_8UC1, (void*)pcBuffer );
+
+	Mat decodedImage  =  imdecode( rawData );
+	if (decodedImage.data == NULL)
+	{
+		// Error reading raw image data
+	}
+	*/
+
+
+	// VideoTexture->UpdateTextureRegions((int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * Camera->VideoSize.X), (uint32)4, (uint8*)FaceData.GetData(), false);
 }
 
 // Should be called by child class only when:

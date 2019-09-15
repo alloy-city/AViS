@@ -51,11 +51,8 @@ void UAViSGameInstance::TurnCameraOn()
 	Character = (AAViSCharacter*) GetFirstLocalPlayerController()->AcknowledgedPawn;
 	Camera = new Webcam(&Character->FaceData);
 
-	// This is not Camera responsibility.
-	// TODO: Create StreamingServer class to listen for incoming connections.
-	// Camera->StartStreamService();
-
 	SS = new StreamService();
+	SS->Camera = Camera;
 	SS->StartStreamService();
 
 	Character->Camera = Camera;

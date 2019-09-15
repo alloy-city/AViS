@@ -50,6 +50,39 @@ void Webcam::UpdateFrame()
 	}
 }
 
+char* Webcam::GetFrame()
+{
+	if (Stream.isOpened())
+	{
+		// UE_LOG(LogTemp, Warning, TEXT("Webcam::GetFrame"));
+
+		Stream.read(Frame);
+		Frame(cv::Rect(10, 10, 30, 30)).copyTo(CroppedFrame); // image will be 30x30
+
+		cv::Size s = CroppedFrame.size();
+
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT(">> Image size: %d X %d"), s.height, s.width));
+
+		CompressionParams.push_back(cv::IMWRITE_JPEG_QUALITY);
+		CompressionParams.push_back(40);
+
+		cv::imencode(".jpg", CroppedFrame, CompressedFrame, CompressionParams);
+
+		FrameNumberOfBytes = CompressedFrame.size();
+
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT("%d"), FrameNumberOfBytes));
+
+		return reinterpret_cast<char*>(CompressedFrame.data());
+	}
+
+	return 0;
+}
+
+int Webcam::GetFrameNumberOfBytes()
+{
+	return FrameNumberOfBytes;
+}
+
 // This function is not a member function of the Webcam class
 // It's executed from another thread, so that the stream
 // service doesn't clog the main program.

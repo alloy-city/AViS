@@ -6,7 +6,10 @@
 #include <winsock2.h>
 #include "HideWindowsPlatformTypes.h"
 
+#include "WebcamReader.h"
+
 #include <iostream>
+#include <thread>
 #include <thread>
 #include "CoreMinimal.h"
 
@@ -19,8 +22,9 @@ public:
 	StreamService();
 	~StreamService();
 
-	// bool KeepServing;
+	bool KeepServing;
 	std::thread StreamServer;
+	Webcam* Camera;
 	void StartStreamService();
 	void StopStreamService();
 };

@@ -14,7 +14,7 @@ StreamService::~StreamService()
 // This function is not a member function of the Webcam class
 // It's executed from another thread, so that the stream
 // service doesn't clog the main program.
-void Listen()
+void Listen(bool * KeepServing, Webcam* Camera)
 {
 	WSADATA WSAData;
 	SOCKET server, client;
@@ -32,28 +32,32 @@ void Listen()
 
 	UE_LOG(LogTemp, Warning, TEXT("THREAD Listening for incoming connections..."));
 
-	char buffer[1024];
 	int clientAddrSize = sizeof(clientAddr);
 	if ((client = accept(server, (SOCKADDR *)&clientAddr, &clientAddrSize)) != INVALID_SOCKET)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("THREAD Client connected!"));
-		recv(client, buffer, sizeof(buffer), 0);
 
-		// std::cout << "Client says: " << buffer << std::endl;
+		while (*KeepServing)
+		{
+			const char * Frame = Camera->GetFrame();
+			send(client, Frame, Camera->GetFrameNumberOfBytes(), 0);
+			std::this_thread::sleep_for(std::chrono::seconds(2));
+		}
 
-		memset(buffer, 0, sizeof(buffer));
 		closesocket(client);
 		UE_LOG(LogTemp, Warning, TEXT("THREAD Client disconnected."));
 	}
+
+	closesocket(server);
 }
 
 void StreamService::StartStreamService()
 {
-	// KeepServing = true;
-	StreamServer = std::thread(Listen);
+	KeepServing = true;
+	StreamServer = std::thread(Listen, &KeepServing, Camera);
 }
 
 void StreamService::StopStreamService()
 {
-	// KeepServing = false;
+	KeepServing = false;
 }
