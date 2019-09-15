@@ -83,6 +83,9 @@ AAViSCharacter::AAViSCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+	// Decoder to decompress jpg frames received over network
+	decoder = new Decoder();
 }
 
 void AAViSCharacter::BeginPlay()
@@ -197,16 +200,18 @@ void AAViSCharacter::UpdateTexture()
 	}
 }
 
-void AAViSCharacter::ApplyFace()
+void AAViSCharacter::ApplyFace(TArray<uint8> buffer)
 {
-	UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::ApplyFace"));
+	// [DONE] 1. Be called by remotely controlled Avatar, upon TCP message received
+	// [DONE] 2. Receive ImageBuffer
 
-	// TODO:
-	// 1. Be called by non-possessed Avatar, upon TCP message received
-	// 2. Receive nSize and ImageBuffer from BP TCP plugin, at AViSAvatar.blueprint, as parameters
-	// 3. Decode jpg texture with OpenCV, available at Camera
-	// 4. Create UTexture2d from cv::Mat
-	// 5. Apply UTexture2d to head.
+	UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::ApplyFace"));
+	UE_LOG(LogTemp, Warning, TEXT("[AAViSCharacter::ApplyFace] Size: %s"), *FString::Printf(TEXT("%d"), buffer.Num()));
+
+	// 3. Decode jpg texture
+	decoder->Decode(&buffer);
+	
+	// 4. VideoTexture->UpdateTextureRegions(Decoder.Frame)
 
 	/* For the decoding step (3)
 	int nSize = ...       // Size of buffer
@@ -235,7 +240,7 @@ void AAViSCharacter::ConnectToFaceFeedSource()
 }
 
 // Try to update texture in BP, when Multicast event arrives from the server
-// Look into UTexture2D::UpdateTextureRegions byte array replication is figured out
+// Look into UTexture2D::UpdateTextureRegions
 void AAViSCharacter::UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData)
 {
 	UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::UpdateTextureRegions"));

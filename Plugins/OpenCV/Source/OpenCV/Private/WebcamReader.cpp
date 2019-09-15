@@ -18,13 +18,16 @@ Webcam::Webcam(TArray<FColor>* fd)
 	Stream = cv::VideoCapture();
 	Frame = cv::Mat();
 
+	// Window for testing
+	// cv::namedWindow("AViS Video Capture Debuggin", cv::WINDOW_AUTOSIZE);
+
 	// Open the stream
 	Stream.open(CameraID);
 	if (Stream.isOpened())
 	{
 		// Initialize stream
 		IsStreamOpen = true;
-		UpdateFrame();
+		// UpdateFrame();
 		VideoSize = FVector2D(Frame.cols, Frame.rows);
 		Size = cv::Size(ResizeDimensions.X, ResizeDimensions.Y);
 
@@ -57,22 +60,53 @@ char* Webcam::GetFrame()
 		// UE_LOG(LogTemp, Warning, TEXT("Webcam::GetFrame"));
 
 		Stream.read(Frame);
-		Frame(cv::Rect(10, 10, 30, 30)).copyTo(CroppedFrame); // image will be 30x30
 
+		if (Frame.empty())
+		{
+			UE_LOG(LogTemp, Warning, TEXT("[Webcam::GetFrame] Frame is empty"));
+			return NULL;
+		}
+
+		if (!Frame.isContinuous())
+		{
+			UE_LOG(LogTemp, Warning, TEXT("[Webcam::GetFrame] Frame is not continous"));
+			return NULL;
+		}
+
+		Frame(cv::Rect(10, 10, 100, 100)).copyTo(CroppedFrame); // image will be 100x100
 		cv::Size s = CroppedFrame.size();
 
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT(">> Image size: %d X %d"), s.height, s.width));
+		// UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT(">> Image size: %d X %d"), s.height, s.width));
 
 		CompressionParams.push_back(cv::IMWRITE_JPEG_QUALITY);
-		CompressionParams.push_back(40);
+		CompressionParams.push_back(90);
 
 		cv::imencode(".jpg", CroppedFrame, CompressedFrame, CompressionParams);
 
-		FrameNumberOfBytes = CompressedFrame.size();
+		/* -- This block proves image is decompressable before it was sent over the network --
+		cv::Mat decodedImage = cv::imdecode(CompressedFrame, cv::IMREAD_COLOR);
+		if (decodedImage.data == NULL)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("[Webcam::GetFrame] Error reading JPG image from buffer"));
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("[Webcam::GetFrame] Successfully read JPG image from buffer"));
+			cv::imshow("AViS Video Capture Debuggin", decodedImage);
+		}
+		*/
 
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT("%d"), FrameNumberOfBytes));
+		FrameNumberOfBytes = CompressedFrame.size() * sizeof(uchar);
 
-		return reinterpret_cast<char*>(CompressedFrame.data());
+		UE_LOG(LogTemp, Warning, TEXT("%s bytes"), *FString::Printf(TEXT("%d"), FrameNumberOfBytes));
+
+		char * x = (char*) malloc(FrameNumberOfBytes);
+
+		for (int i=0; i<CompressedFrame.size(); i++)
+		{
+			x[i] = CompressedFrame[i];
+		}
+
+		return x;
 	}
 
 	return 0;

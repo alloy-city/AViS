@@ -11,6 +11,7 @@
 //#include "Runtime/Engine/Classes/Engine/Texture2D.h"
 //#include "Components/StaticMeshComponent.h"
 //#include "Materials/MaterialInstanceDynamic.h"
+#include "Decoder.h"
 #include "AViSCharacter.generated.h"
 
 class UInputComponent;
@@ -60,6 +61,7 @@ public:
 	Webcam* Camera = NULL;
 	float RefreshTimer = 0.0;
 	float RefreshRate = 2;
+	Decoder* decoder;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Webcam)
 	UTexture2D* VideoTexture;
@@ -73,7 +75,7 @@ public:
 	void InformServerCameraIsOff();
 	
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
-	void ApplyFace();
+	void ApplyFace(TArray<uint8> buffer);
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	void ConnectToFaceFeedSource();

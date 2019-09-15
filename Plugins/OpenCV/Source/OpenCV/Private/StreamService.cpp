@@ -39,9 +39,9 @@ void Listen(bool * KeepServing, Webcam* Camera)
 
 		while (*KeepServing)
 		{
-			const char * Frame = Camera->GetFrame();
+			char * Frame = Camera->GetFrame();
 			send(client, Frame, Camera->GetFrameNumberOfBytes(), 0);
-			std::this_thread::sleep_for(std::chrono::seconds(2));
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		}
 
 		closesocket(client);
