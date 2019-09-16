@@ -4,11 +4,12 @@
 Decoder::Decoder()
 {
 	// Window for testing
-	cv::namedWindow("AViS Video Capture Debuggin", cv::WINDOW_AUTOSIZE);
+	cv::namedWindow("AViS Receiving", cv::WINDOW_NORMAL);
 }
 
 Decoder::~Decoder()
 {
+	cv::destroyAllWindows();
 }
 
 void Decoder::Decode(TArray<uint8>* Buffer)
@@ -25,7 +26,7 @@ void Decoder::Decode(TArray<uint8>* Buffer)
 	}
 	else {
 		// UE_LOG(LogTemp, Warning, TEXT("[Decoder::Decode] Successfully read JPG image from buffer"));
-		cv::imshow("AViS Video Capture Debuggin", decodedImage);
+		cv::imshow("AViS Receiving", decodedImage);
 	}
 }
 

@@ -2,14 +2,15 @@
 
 // Move to StreamService class
 #include <iostream>
-#include <thread>
-//
+// #include <thread>
 
 #include "opencv2/core.hpp"
+#include "opencv2/objdetect.hpp"
 #include "opencv2/highgui.hpp"	
 #include "opencv2/imgproc.hpp"
 #include "opencv2/videoio.hpp"
 #include <opencv2/imgcodecs.hpp>
+#include <opencv2/core/utility.hpp>
 #include "Runtime/Core/Public/Math/Color.h"
 #include "Runtime/Core/Public/Math/Vector2D.h"
 
@@ -31,10 +32,17 @@ public:
 	cv::VideoCapture Stream;
 	cv::Size Size;
 	TArray<FColor>* FaceData;
-	std::thread StreamServer;
+	// std::thread StreamServer;
 	int FrameNumberOfBytes;
+	float FrameRate = 45;
 
+	// Network buffer
 	char stackBuffer[60000];
+
+	// Face Detaction
+	cv::CascadeClassifier face_cascade;
+	cv::CascadeClassifier eyes_cascade;
+	// std::vector<cv::Rect> faces;
 
 	// Methods
 	void UpdateFrame();
@@ -42,4 +50,8 @@ public:
 	char* GetFrame();
 	int GetFrameNumberOfBytes();
 	// void StartStreamService();
+	void DetectFace(cv::Mat& Frame);
+	void detectAndDraw(cv::Mat& img, cv::CascadeClassifier& cascade,
+		cv::CascadeClassifier& nestedCascade,
+		double scale, bool tryflip);
 };

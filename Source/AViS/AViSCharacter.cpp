@@ -204,31 +204,9 @@ void AAViSCharacter::StartDecoder()
 
 void AAViSCharacter::ApplyFace(TArray<uint8> buffer)
 {
-	// [DONE] 1. Be called by remotely controlled Avatar, upon TCP message received
-	// [DONE] 2. Receive ImageBuffer
-
-	// UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::ApplyFace"));
-	// UE_LOG(LogTemp, Warning, TEXT("[AAViSCharacter::ApplyFace] Size: %s"), *FString::Printf(TEXT("%d"), buffer.Num()));
-
-	// 3. [DONE] Decode jpg texture
 	decoder->Decode(&buffer);
 	
 	// 4. VideoTexture->UpdateTextureRegions(Decoder.Frame)
-
-	/* For the decoding step (3)
-	int nSize = ...       // Size of buffer
-	uchar* pcBuffer = ...    // Raw buffer data
-
-	// Create a Size(1, nSize) Mat object of 8-bit, single-byte elements
-	Mat rawData( 1, nSize, CV_8UC1, (void*)pcBuffer );
-
-	Mat decodedImage  =  imdecode( rawData );
-	if (decodedImage.data == NULL)
-	{
-		// Error reading raw image data
-	}
-	*/
-
 
 	// VideoTexture->UpdateTextureRegions((int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * Camera->VideoSize.X), (uint32)4, (uint8*)FaceData.GetData(), false);
 }
