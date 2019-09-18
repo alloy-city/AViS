@@ -9,25 +9,6 @@ Webcam::Webcam(TArray<FColor>* fd)
 
 	cv::namedWindow("AViS Sending", cv::WINDOW_NORMAL);
 
-	// Load Face Detaction Cascades
-	// cv::String face_cascade_name = cv::samples::findFile("C:\AViS\Plugins\OpenCV\Resources\Data\haarcascades\haarcascade_frontalface_default.xml");
-	// cv::String eyes_cascade_name = cv::samples::findFile("C:\AViS\Plugins\OpenCV\Resources\Data\haarcascades\haarcascade_eye.xml");
-	//-- 1. Load the cascades
-
-	// cv::String face_cascade_name("C:/AViS/Plugins/OpenCV/Resources/Data/haarcascades/haarcascade_frontalface_default.xml");
-	cv::String face_cascade_name("C:/AViS/Plugins/OpenCV/Resources/Data/haarcascades/haarcascade_frontalface_alt_tree.xml");
-	cv::String eyes_cascade_name("C:/AViS/Plugins/OpenCV/Resources/Data/haarcascades/haarcascade_eye.xml");
-
-	if (!face_cascade.load(face_cascade_name))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("[Face Detaction] Error loading face cascade"));
-	};
-	if (!eyes_cascade.load(eyes_cascade_name))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("[Face Detaction] Error loading eye cascade"));
-	};
-	// ****************************************************
-
 	// Initialize OpenCV and webcam properties
 	CameraID = 0;
 	IsStreamOpen = false;
@@ -37,6 +18,19 @@ Webcam::Webcam(TArray<FColor>* fd)
 	Stream = cv::VideoCapture();
 	Frame = cv::Mat();
 	FaceData = fd;
+
+	//-- 1. Load the cascades
+	FaceCascadeFile = cv::String("C:/AViS/Plugins/OpenCV/Resources/Data/haarcascades/haarcascade_frontalface_alt.xml");
+	EyesCascadeFile = cv::String("C:/AViS/Plugins/OpenCV/Resources/Data/haarcascades/haarcascade_eye.xml");
+
+	if (!cascade.load(FaceCascadeFile))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("[Webcam::Webcam] Error loading face cascade"));
+	};
+	if (!nestedCascade.load(EyesCascadeFile))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("[Webcam::Webcam] Error loading eye cascade"));
+	};
 
 	// Open the stream
 	Stream.open(CameraID);
@@ -78,7 +72,7 @@ char* Webcam::GetFrame()
 
 		Stream.read(Frame);
 
-		cv::imshow("AViS Sending", Frame);
+		// cv::imshow("AViS Sending", Frame);
 
 		if (Frame.empty())
 		{
@@ -93,9 +87,9 @@ char* Webcam::GetFrame()
 		}
 
 		/* ----------------------WIP-------------------- */
-		// cv::Mat clone = Frame.clone();
+		cv::Mat clone = Frame.clone();
 		// DetectFace(clone);
-		// detectAndDraw(clone, face_cascade, eyes_cascade, 4, true);
+		detectAndDraw(clone, cascade, nestedCascade, 4, false);
 		/* --------------------------------------------- */
 
 		Frame(cv::Rect(70, 70, 100, 100)).copyTo(CroppedFrame); // image will be 100x100
@@ -146,79 +140,6 @@ void Webcam::TurnOff()
 	cv::destroyAllWindows();
 }
 
-void Webcam::DetectFace(cv::Mat& Frame)
-{
-	cv::Mat frame_gray;
-	cv::cvtColor(Frame, frame_gray, cv::COLOR_BGR2GRAY);
-	cv::equalizeHist(frame_gray, frame_gray);
-	
-	//-- Detect faces
-	std::vector<cv::Rect> faces;
-	// face_cascade.detectMultiScale(frame_gray, faces);
-
-
-
-
-
-
-	std::vector<double> weights;
-	std::vector<int> levels;
-	std::vector<cv::Rect> detections;
-
-
-
-	if (face_cascade.empty())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("[Webcam::DetectFace] Cascade is empty"));
-	}
-	else {
-		// WIP Segmentation fault here
-		face_cascade.detectMultiScale(frame_gray, faces);
-		
-		
-		for (size_t i = 0; i < faces.size(); i++)
-		{
-			cv::Point center(faces[i].x + faces[i].width / 2, faces[i].y + faces[i].height / 2);
-			cv::ellipse(Frame, center, cv::Size(faces[i].width / 2, faces[i].height / 2), 0, 0, 360, cv::Scalar(255, 0, 255), 4);
-
-
-			// cv::Mat faceROI = frame_gray(faces[i]);
-			/*
-			//-- In each face, detect eyes
-			std::vector<cv::Rect> eyes;
-			eyes_cascade.detectMultiScale(faceROI, eyes);
-
-			for (size_t j = 0; j < eyes.size(); j++)
-			{
-				cv::Point eye_center(faces[i].x + eyes[j].x + eyes[j].width / 2, faces[i].y + eyes[j].y + eyes[j].height / 2);
-				int radius = cvRound((eyes[j].width + eyes[j].height)*0.25);
-				cv::circle(Frame, eye_center, radius, cv::Scalar(255, 0, 0), 4);
-			}
-			*/
-		}
-
-	}
-
-
-
-
-
-	// cv::CascadeClassifier model("/path/to/your/model.xml");
-	// model.detectMultiScale(img, detections, levels, weights, 1.1, 3, 0, Size(), Size(), true);
-
-
-
-
-
-
-
-	
-
-	//-- Display
-	cv::imshow("AViS Sending", Frame);
-	// cv::imshow("AViS Grey", frame_gray);
-}
-
 void Webcam::detectAndDraw(
 	cv::Mat& img,
 	cv::CascadeClassifier& cascade,
@@ -242,15 +163,31 @@ void Webcam::detectAndDraw(
 	cv::Mat gray, smallImg;
 	cv::cvtColor(img, gray, cv::COLOR_BGR2GRAY);
 	double fx = 1 / scale;
-	resize(gray, smallImg, cv::Size(), fx, fx, 5);
-	equalizeHist(smallImg, smallImg);
+	cv::resize(gray, smallImg, cv::Size(), fx, fx, cv::INTER_NEAREST);
+	cv::equalizeHist(smallImg, smallImg);
 	t = (double)cv::getTickCount();
-	cascade.detectMultiScale(smallImg, faces,
-		1.1, 2, 0
-		//|CASCADE_FIND_BIGGEST_OBJECT
-		//|CASCADE_DO_ROUGH_SEARCH
-		| cv::CASCADE_SCALE_IMAGE,
-		cv::Size(30, 30));
+
+	if (cascade.empty())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("[Webcam::detectAndDraw] Cascade is empty"));
+	}
+	else {
+		/* seg fault here */
+		cascade.detectMultiScale(
+			smallImg,
+			faces,
+			1.1,
+			2,
+			0
+			// cv::CASCADE_FIND_BIGGEST_OBJECT,
+			// cv::CASCADE_DO_ROUGH_SEARCH,
+			| cv::CASCADE_SCALE_IMAGE,
+			cv::Size(30, 30)
+		);
+	}
+
+	/*
+
 	if (tryflip)
 	{
 		flip(smallImg, smallImg, 1);
@@ -308,5 +245,6 @@ void Webcam::detectAndDraw(
 			circle(img, center, radius, color, 3, 8, 0);
 		}
 	}
-	imshow("AViS Sending", img);
+	*/
+	cv::imshow("AViS Sending", smallImg);
 }

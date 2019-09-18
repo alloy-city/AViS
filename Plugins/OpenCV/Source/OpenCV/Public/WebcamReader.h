@@ -34,15 +34,14 @@ public:
 	TArray<FColor>* FaceData;
 	// std::thread StreamServer;
 	int FrameNumberOfBytes;
-	float FrameRate = 45;
+	float FrameRate = 1;
 
 	// Network buffer
 	char stackBuffer[60000];
 
-	// Face Detaction
-	cv::CascadeClassifier face_cascade;
-	cv::CascadeClassifier eyes_cascade;
-	// std::vector<cv::Rect> faces;
+	// Face Detection
+	cv::CascadeClassifier cascade, nestedCascade;
+	cv::String FaceCascadeFile, EyesCascadeFile;
 
 	// Methods
 	void UpdateFrame();
@@ -50,8 +49,5 @@ public:
 	char* GetFrame();
 	int GetFrameNumberOfBytes();
 	// void StartStreamService();
-	void DetectFace(cv::Mat& Frame);
-	void detectAndDraw(cv::Mat& img, cv::CascadeClassifier& cascade,
-		cv::CascadeClassifier& nestedCascade,
-		double scale, bool tryflip);
+	void detectAndDraw(cv::Mat& img, cv::CascadeClassifier& ccFace, cv::CascadeClassifier& ccEye, double scale, bool tryflip);
 };
