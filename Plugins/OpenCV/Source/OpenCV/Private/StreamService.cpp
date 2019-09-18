@@ -40,7 +40,7 @@ void Listen(bool * KeepServing, Webcam* Camera)
 		while (*KeepServing)
 		{
 			char * Frame = Camera->GetFrame();
-			send(client, Frame, Camera->GetFrameNumberOfBytes(), 0);
+			// send(client, Frame, Camera->GetFrameNumberOfBytes(), 0);
 			std::this_thread::sleep_for(std::chrono::milliseconds((long long) (1000 / Camera->FrameRate)));
 		}
 

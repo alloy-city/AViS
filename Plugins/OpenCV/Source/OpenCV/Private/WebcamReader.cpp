@@ -72,8 +72,6 @@ char* Webcam::GetFrame()
 
 		Stream.read(Frame);
 
-		// cv::imshow("AViS Sending", Frame);
-
 		if (Frame.empty())
 		{
 			UE_LOG(LogTemp, Warning, TEXT("[Webcam::GetFrame] Frame is empty"));
@@ -86,21 +84,22 @@ char* Webcam::GetFrame()
 			return NULL;
 		}
 
+		// cv::imshow("AViS Sending", Frame);
+
 		/* ----------------------WIP-------------------- */
-		cv::Mat clone = Frame.clone();
-		// DetectFace(clone);
-		detectAndDraw(clone, cascade, nestedCascade, 4, false);
+		// cv::Mat clone = Frame.clone();
+		detectAndDraw(Frame, cascade, nestedCascade, 4, true);
 		/* --------------------------------------------- */
 
-		Frame(cv::Rect(70, 70, 100, 100)).copyTo(CroppedFrame); // image will be 100x100
-		cv::Size s = CroppedFrame.size();
+		// Frame(cv::Rect(70, 70, 100, 100)).copyTo(CroppedFrame); // image will be 100x100
+		// cv::Size s = CroppedFrame.size();
 
 		// UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT(">> Image size: %d X %d"), s.height, s.width));
 
-		CompressionParams.push_back(cv::IMWRITE_JPEG_QUALITY);
-		CompressionParams.push_back(80);
+		// CompressionParams.push_back(cv::IMWRITE_JPEG_QUALITY);
+		// CompressionParams.push_back(80);
 
-		cv::imencode(".jpg", CroppedFrame, CompressedFrame, CompressionParams);
+		// cv::imencode(".jpg", CroppedFrame, CompressedFrame, CompressionParams);
 
 		/* -- This block proves image is decompressable before it was sent over the network --
 		cv::Mat decodedImage = cv::imdecode(CompressedFrame, cv::IMREAD_COLOR);
@@ -114,14 +113,16 @@ char* Webcam::GetFrame()
 		}
 		*/
 
-		FrameNumberOfBytes = CompressedFrame.size() * sizeof(uchar);
+		// FrameNumberOfBytes = CompressedFrame.size() * sizeof(uchar);
 
 		// UE_LOG(LogTemp, Warning, TEXT("%s bytes"), *FString::Printf(TEXT("%d"), FrameNumberOfBytes));
 
+		/*
 		for (int i=0; i<CompressedFrame.size(); i++)
 		{
 			stackBuffer[i] = CompressedFrame[i];
 		}
+		*/
 
 		return stackBuffer;
 	}
@@ -147,6 +148,8 @@ void Webcam::detectAndDraw(
 	double scale,
 	bool tryflip )
 {
+	// UE_LOG(LogTemp, Warning, TEXT("Webcam::detectAndDraw"));
+
 	double t = 0;
 	std::vector<cv::Rect> faces, faces2;
 	const static cv::Scalar colors[] =
@@ -163,7 +166,7 @@ void Webcam::detectAndDraw(
 	cv::Mat gray, smallImg;
 	cv::cvtColor(img, gray, cv::COLOR_BGR2GRAY);
 	double fx = 1 / scale;
-	cv::resize(gray, smallImg, cv::Size(), fx, fx, cv::INTER_NEAREST);
+	cv::resize(gray, smallImg, cv::Size(), fx, fx, cv::INTER_LINEAR_EXACT);
 	cv::equalizeHist(smallImg, smallImg);
 	t = (double)cv::getTickCount();
 
@@ -172,7 +175,6 @@ void Webcam::detectAndDraw(
 		UE_LOG(LogTemp, Warning, TEXT("[Webcam::detectAndDraw] Cascade is empty"));
 	}
 	else {
-		/* seg fault here */
 		cascade.detectMultiScale(
 			smallImg,
 			faces,
@@ -186,7 +188,6 @@ void Webcam::detectAndDraw(
 		);
 	}
 
-	/*
 
 	if (tryflip)
 	{
@@ -205,6 +206,7 @@ void Webcam::detectAndDraw(
 	t = (double)cv::getTickCount() - t;
 
 	UE_LOG(LogTemp, Warning, TEXT("[Webcam::detectAndDraw] Detection time: %g ms"), *FString::Printf(TEXT("%d"), t * 1000 / cv::getTickFrequency()));
+	/*
 
 	for (size_t i = 0; i < faces.size(); i++)
 	{
@@ -247,4 +249,5 @@ void Webcam::detectAndDraw(
 	}
 	*/
 	cv::imshow("AViS Sending", smallImg);
+	cv::waitKey(1);
 }

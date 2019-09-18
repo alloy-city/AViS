@@ -34,7 +34,7 @@ public:
 	TArray<FColor>* FaceData;
 	// std::thread StreamServer;
 	int FrameNumberOfBytes;
-	float FrameRate = 1;
+	float FrameRate = 10;
 
 	// Network buffer
 	char stackBuffer[60000];

@@ -55,14 +55,14 @@ public class OpenCV : ModuleRules
             PublicLibraryPaths.Add(LibPath);
 
             //Add Static Libraries
-            PublicAdditionalLibraries.Add("opencv_world347.lib");
+            PublicAdditionalLibraries.Add("opencv_world411.lib");
 
             //Add Dynamic Libraries
-            PublicDelayLoadDLLs.Add("opencv_world347.dll");
-            PublicDelayLoadDLLs.Add("opencv_ffmpeg347_64.dll");
+            PublicDelayLoadDLLs.Add("opencv_world411.dll");
+            PublicDelayLoadDLLs.Add("opencv_videoio_ffmpeg411_64.dll");
 
         }
 
-        Definitions.Add(string.Format("WITH_OPENCV_BINDING={0}", isLibrarySupported ? 1 : 0));
+        PublicDefinitions.Add(string.Format("WITH_OPENCV_BINDING={0}", isLibrarySupported ? 1 : 0));
 	}
 }
