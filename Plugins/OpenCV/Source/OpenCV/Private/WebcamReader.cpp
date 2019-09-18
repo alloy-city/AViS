@@ -20,14 +20,14 @@ Webcam::Webcam(TArray<FColor>* fd)
 	FaceData = fd;
 
 	//-- 1. Load the cascades
-	FaceCascadeFile = cv::String("C:/AViS/Plugins/OpenCV/Resources/Data/haarcascades/haarcascade_frontalface_alt.xml");
+	FaceCascadeFile = cv::String("C:/AViS/Plugins/OpenCV/Resources/Data/haarcascades/haarcascade_frontalface_default.xml");
 	EyesCascadeFile = cv::String("C:/AViS/Plugins/OpenCV/Resources/Data/haarcascades/haarcascade_eye.xml");
 
-	if (!cascade.load(FaceCascadeFile))
+	if (!FaceCascade.load(FaceCascadeFile))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("[Webcam::Webcam] Error loading face cascade"));
 	};
-	if (!nestedCascade.load(EyesCascadeFile))
+	if (!EyesCascade.load(EyesCascadeFile))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("[Webcam::Webcam] Error loading eye cascade"));
 	};
@@ -70,7 +70,7 @@ char* Webcam::GetFrame()
 	{
 		// UE_LOG(LogTemp, Warning, TEXT("Webcam::GetFrame"));
 
-		Stream.read(Frame);
+		Stream >> Frame;
 
 		if (Frame.empty())
 		{
@@ -88,7 +88,7 @@ char* Webcam::GetFrame()
 
 		/* ----------------------WIP-------------------- */
 		// cv::Mat clone = Frame.clone();
-		detectAndDraw(Frame, cascade, nestedCascade, 4, true);
+		detectAndDraw(Frame, FaceCascade, EyesCascade, 4, false);
 		/* --------------------------------------------- */
 
 		// Frame(cv::Rect(70, 70, 100, 100)).copyTo(CroppedFrame); // image will be 100x100
@@ -151,7 +151,7 @@ void Webcam::detectAndDraw(
 	// UE_LOG(LogTemp, Warning, TEXT("Webcam::detectAndDraw"));
 
 	double t = 0;
-	std::vector<cv::Rect> faces, faces2;
+	
 	const static cv::Scalar colors[] =
 	{
 		cv::Scalar(255,0,0),
@@ -168,8 +168,8 @@ void Webcam::detectAndDraw(
 	double fx = 1 / scale;
 	cv::resize(gray, smallImg, cv::Size(), fx, fx, cv::INTER_LINEAR_EXACT);
 	cv::equalizeHist(smallImg, smallImg);
-	t = (double)cv::getTickCount();
 
+	t = (double)cv::getTickCount();
 	if (cascade.empty())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("[Webcam::detectAndDraw] Cascade is empty"));
@@ -180,42 +180,41 @@ void Webcam::detectAndDraw(
 			faces,
 			1.1,
 			2,
-			0
+			// 0,
 			// cv::CASCADE_FIND_BIGGEST_OBJECT,
-			// cv::CASCADE_DO_ROUGH_SEARCH,
-			| cv::CASCADE_SCALE_IMAGE,
-			cv::Size(30, 30)
+			cv::CASCADE_DO_ROUGH_SEARCH,
+			// | cv::CASCADE_SCALE_IMAGE,
+			cv::Size(25, 25),
+			cv::Size(125, 125)
 		);
-	}
 
-
-	if (tryflip)
-	{
-		flip(smallImg, smallImg, 1);
-		cascade.detectMultiScale(smallImg, faces2,
-			1.1, 2, 0
-			//|CASCADE_FIND_BIGGEST_OBJECT
-			//|CASCADE_DO_ROUGH_SEARCH
-			| cv::CASCADE_SCALE_IMAGE,
-			cv::Size(30, 30));
-		for (std::vector<cv::Rect>::const_iterator r = faces2.begin(); r != faces2.end(); ++r)
+		if (tryflip)
 		{
-			faces.push_back(cv::Rect(smallImg.cols - r->x - r->width, r->y, r->width, r->height));
+			flip(smallImg, smallImg, 1);
+			cascade.detectMultiScale(smallImg, faces2,
+				1.1, 2, 0
+				//|CASCADE_FIND_BIGGEST_OBJECT
+				//|CASCADE_DO_ROUGH_SEARCH
+				| cv::CASCADE_SCALE_IMAGE,
+				cv::Size(30, 30));
+			for (std::vector<cv::Rect>::const_iterator r = faces2.begin(); r != faces2.end(); ++r)
+			{
+				faces.push_back(cv::Rect(smallImg.cols - r->x - r->width, r->y, r->width, r->height));
+			}
 		}
 	}
+
 	t = (double)cv::getTickCount() - t;
 
-	UE_LOG(LogTemp, Warning, TEXT("[Webcam::detectAndDraw] Detection time: %g ms"), *FString::Printf(TEXT("%d"), t * 1000 / cv::getTickFrequency()));
-	/*
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT("%i faces detected in %f ms"), faces.size(), t * 1000 / cv::getTickFrequency()));
 
 	for (size_t i = 0; i < faces.size(); i++)
 	{
-		cv::Rect r = faces[i];
-		cv::Mat smallImgROI;
-		std::vector<cv::Rect> nestedObjects;
-		cv::Point center;
-		cv::Scalar color = colors[i % 8];
-		int radius;
+		r = faces[i];
+		// std::vector<cv::Rect> nestedObjects;
+		
+		color = colors[i % 8];
+		
 		double aspect_ratio = (double)r.width / r.height;
 		if (0.75 < aspect_ratio && aspect_ratio < 1.3)
 		{
@@ -228,6 +227,7 @@ void Webcam::detectAndDraw(
 			rectangle(img, cv::Point(cvRound(r.x*scale), cvRound(r.y*scale)),
 				cv::Point(cvRound((r.x + r.width - 1)*scale), cvRound((r.y + r.height - 1)*scale)),
 				color, 3, 8, 0);
+		/*
 		if (nestedCascade.empty())
 			continue;
 		smallImgROI = smallImg(r);
@@ -246,8 +246,9 @@ void Webcam::detectAndDraw(
 			radius = cvRound((nr.width + nr.height)*0.25*scale);
 			circle(img, center, radius, color, 3, 8, 0);
 		}
+		*/
 	}
-	*/
-	cv::imshow("AViS Sending", smallImg);
+	
+	cv::imshow("AViS Sending", img);
 	cv::waitKey(1);
 }

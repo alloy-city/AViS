@@ -11,8 +11,10 @@ public class OpenCV : ModuleRules
 
 	public OpenCV(ReadOnlyTargetRules Target): base (Target)
 	{
+        PrivatePCHHeaderFile = "Private/OpenCVPrivatePCH.h";
+
         // Startard Module Dependencies
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "RHI", "RenderCore" });
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "RHI", "RenderCore" });
 		PrivateDependencyModuleNames.AddRange(new string[] { "CoreUObject", "Engine", "Slate", "SlateCore" });
 
         // Start OpenCV linking here!
@@ -60,7 +62,6 @@ public class OpenCV : ModuleRules
             //Add Dynamic Libraries
             PublicDelayLoadDLLs.Add("opencv_world411.dll");
             PublicDelayLoadDLLs.Add("opencv_videoio_ffmpeg411_64.dll");
-
         }
 
         PublicDefinitions.Add(string.Format("WITH_OPENCV_BINDING={0}", isLibrarySupported ? 1 : 0));

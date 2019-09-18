@@ -12,11 +12,11 @@ Decoder::~Decoder()
 	cv::destroyAllWindows();
 }
 
-void Decoder::Decode(TArray<uint8>* Buffer)
+void Decoder::Decode(TArray<uint8>* buffer)
 {
-	int size = Buffer->Num();	
+	int size = buffer->Num();
 	uchar * x = (uchar*) malloc(size);
-	x = Buffer->GetData();
+	x = buffer->GetData();
 	cv::Mat rawData(40, 40, CV_8UC3, (void*)x);
 	cv::Mat decodedImage = cv::imdecode(rawData, cv::IMREAD_COLOR);
 	

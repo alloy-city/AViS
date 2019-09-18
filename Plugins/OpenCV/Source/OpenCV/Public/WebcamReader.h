@@ -40,8 +40,14 @@ public:
 	char stackBuffer[60000];
 
 	// Face Detection
-	cv::CascadeClassifier cascade, nestedCascade;
+	cv::CascadeClassifier FaceCascade, EyesCascade;
 	cv::String FaceCascadeFile, EyesCascadeFile;
+	std::vector<cv::Rect> faces, faces2;
+	cv::Rect r;
+	cv::Mat smallImgROI;
+	cv::Point center;
+	cv::Scalar color;
+	int radius;
 
 	// Methods
 	void UpdateFrame();
