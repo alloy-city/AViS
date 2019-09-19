@@ -14,12 +14,19 @@ Decoder::~Decoder()
 
 void Decoder::Decode(TArray<uint8>* buffer)
 {
+	// UE_LOG(LogTemp, Warning, TEXT("[Decoder::Decode]"));
+
+	if (buffer == nullptr || buffer == NULL) return;
+
+	// UE_LOG(LogTemp, Warning, TEXT("[Decoder::Decode] Buffer is not NULL"));
+	
 	int size = buffer->Num();
 	uchar * x = (uchar*) malloc(size);
 	x = buffer->GetData();
-	cv::Mat rawData(40, 40, CV_8UC3, (void*)x);
-	cv::Mat decodedImage = cv::imdecode(rawData, cv::IMREAD_COLOR);
 	
+	rawData = cv::Mat(1, size, CV_8UC1, (void*)x);
+	cv::Mat decodedImage = cv::imdecode(rawData, cv::IMREAD_COLOR);
+
 	if (decodedImage.data == NULL)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("[Decoder::Decode] Error reading JPG image from buffer"));

@@ -83,6 +83,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	void StartDecoder();
 
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	bool IsDecoderReady();
+
 	// SUPER IMPORTANT: The Face
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	UMaterialInstanceDynamic* DynamicFace;

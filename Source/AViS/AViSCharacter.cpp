@@ -199,11 +199,25 @@ void AAViSCharacter::UpdateTexture()
 
 void AAViSCharacter::StartDecoder()
 {
-	decoder = new Decoder();
+	if (decoder == NULL) decoder = new Decoder();
+}
+
+bool AAViSCharacter::IsDecoderReady()
+{
+	if (decoder != NULL) return true;
+	return false;
 }
 
 void AAViSCharacter::ApplyFace(TArray<uint8> buffer)
 {
+	// UE_LOG(LogTemp, Warning, TEXT("[AAViSCharacter::ApplyFace]"));
+
+	if (decoder == NULL)
+	{
+		StartDecoder();
+		return;
+	}
+
 	decoder->Decode(&buffer);
 	
 	// 4. VideoTexture->UpdateTextureRegions(Decoder.Frame)

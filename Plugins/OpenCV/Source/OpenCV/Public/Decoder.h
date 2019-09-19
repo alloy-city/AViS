@@ -26,6 +26,7 @@ public:
 	TArray<uint8>* Buffer;
 	cv::Mat Frame;
 	std::vector<int> CompressionParams;
+	cv::Mat rawData;
 
 	void Decode(TArray<uint8>*);
 	void UpdateTexture(UTexture2D* Face);

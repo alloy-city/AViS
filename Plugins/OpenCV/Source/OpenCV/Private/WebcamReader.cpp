@@ -91,15 +91,15 @@ char* Webcam::GetFrame()
 		detectAndDraw(Frame, FaceCascade, EyesCascade, 4, false);
 		/* --------------------------------------------- */
 
-		// Frame(cv::Rect(70, 70, 100, 100)).copyTo(CroppedFrame); // image will be 100x100
+		Frame(cv::Rect(70, 70, 100, 100)).copyTo(CroppedFrame); // image will be 100x100
 		// cv::Size s = CroppedFrame.size();
 
 		// UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT(">> Image size: %d X %d"), s.height, s.width));
 
-		// CompressionParams.push_back(cv::IMWRITE_JPEG_QUALITY);
-		// CompressionParams.push_back(80);
+		CompressionParams.push_back(cv::IMWRITE_JPEG_QUALITY);
+		CompressionParams.push_back(80);
 
-		// cv::imencode(".jpg", CroppedFrame, CompressedFrame, CompressionParams);
+		cv::imencode(".jpg", CroppedFrame, CompressedFrame, CompressionParams);
 
 		/* -- This block proves image is decompressable before it was sent over the network --
 		cv::Mat decodedImage = cv::imdecode(CompressedFrame, cv::IMREAD_COLOR);
@@ -113,16 +113,14 @@ char* Webcam::GetFrame()
 		}
 		*/
 
-		// FrameNumberOfBytes = CompressedFrame.size() * sizeof(uchar);
+		FrameNumberOfBytes = CompressedFrame.size() * sizeof(uchar);
 
 		// UE_LOG(LogTemp, Warning, TEXT("%s bytes"), *FString::Printf(TEXT("%d"), FrameNumberOfBytes));
 
-		/*
 		for (int i=0; i<CompressedFrame.size(); i++)
 		{
 			stackBuffer[i] = CompressedFrame[i];
 		}
-		*/
 
 		return stackBuffer;
 	}
@@ -221,7 +219,7 @@ void Webcam::detectAndDraw(
 			center.x = cvRound((r.x + r.width*0.5)*scale);
 			center.y = cvRound((r.y + r.height*0.5)*scale);
 			radius = cvRound((r.width + r.height)*0.25*scale);
-			circle(img, center, radius, color, 3, 8, 0);
+			circle(img, center, radius, color, 2, 8, 0);
 		}
 		else
 			rectangle(img, cv::Point(cvRound(r.x*scale), cvRound(r.y*scale)),
