@@ -64,7 +64,12 @@ void Webcam::UpdateFrame()
 	}
 }
 
-char* Webcam::GetFrame()
+char* Webcam::GetVideoBuffer()
+{
+	return VideoBuffer;
+}
+
+bool Webcam::GetFrame()
 {
 	if (Stream.isOpened())
 	{
@@ -75,54 +80,36 @@ char* Webcam::GetFrame()
 		if (Frame.empty())
 		{
 			UE_LOG(LogTemp, Warning, TEXT("[Webcam::GetFrame] Frame is empty"));
-			return NULL;
+			return false;
 		}
 
 		if (!Frame.isContinuous())
 		{
 			UE_LOG(LogTemp, Warning, TEXT("[Webcam::GetFrame] Frame is not continous"));
-			return NULL;
+			return false;
 		}
 
-		// cv::imshow("AViS Sending", Frame);
-
-		/* ----------------------WIP-------------------- */
-		// cv::Mat clone = Frame.clone();
-		// Face = detectAndDraw(Frame, FaceCascade, EyesCascade, 4, false);
-		/* --------------------------------------------- */
-
-		Frame(detectAndDraw(Frame, FaceCascade, EyesCascade, 4, false)).copyTo(CroppedFrame); // image will be 100x100
-		// cv::Size s = CroppedFrame.size();
-
-		// UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT(">> Image size: %d X %d"), s.height, s.width));
-
-		CompressionParams.push_back(cv::IMWRITE_JPEG_QUALITY);
-		CompressionParams.push_back(80);
-
-		cv::imencode(".jpg", CroppedFrame, CompressedFrame, CompressionParams);
-
-		/* -- This block proves image is decompressable before it was sent over the network --
-		cv::Mat decodedImage = cv::imdecode(CompressedFrame, cv::IMREAD_COLOR);
-		if (decodedImage.data == NULL)
+		// If DetectFace returns false, return false
+		// otherwise crop, compress, write to stackBuffer and return true
+		if (DetectFace(Frame, FaceCascade, EyesCascade, 4, false))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("[Webcam::GetFrame] Error reading JPG image from buffer"));
+			Frame(Face).copyTo(CroppedFrame);
+			CompressionParams.push_back(cv::IMWRITE_JPEG_QUALITY);
+			CompressionParams.push_back(80);
+
+			cv::imencode(".jpg", CroppedFrame, CompressedFrame, CompressionParams);
+			FrameNumberOfBytes = CompressedFrame.size() * sizeof(uchar);
+
+			for (int i=0; i<CompressedFrame.size(); i++)
+			{
+				VideoBuffer[i] = CompressedFrame[i];
+			}
+
+			return true;
 		}
 		else {
-			UE_LOG(LogTemp, Warning, TEXT("[Webcam::GetFrame] Successfully read JPG image from buffer"));
-			cv::imshow("AViS Video Capture Debuggin", decodedImage);
+			return false;
 		}
-		*/
-
-		FrameNumberOfBytes = CompressedFrame.size() * sizeof(uchar);
-
-		// UE_LOG(LogTemp, Warning, TEXT("%s bytes"), *FString::Printf(TEXT("%d"), FrameNumberOfBytes));
-
-		for (int i=0; i<CompressedFrame.size(); i++)
-		{
-			stackBuffer[i] = CompressedFrame[i];
-		}
-
-		return stackBuffer;
 	}
 
 	return 0;
@@ -139,14 +126,13 @@ void Webcam::TurnOff()
 	cv::destroyAllWindows();
 }
 
-cv::Rect Webcam::detectAndDraw(
+bool Webcam::DetectFace(
 	cv::Mat& img,
 	cv::CascadeClassifier& cascade,
 	cv::CascadeClassifier& nestedCascade,
 	double scale,
 	bool tryflip )
 {
-	cv::Rect f(10, 10, 10, 10);
 	// UE_LOG(LogTemp, Warning, TEXT("Webcam::detectAndDraw"));
 
 	double t = 0;
@@ -191,13 +177,19 @@ cv::Rect Webcam::detectAndDraw(
 	t = (double)cv::getTickCount() - t;
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT("%i faces detected in %f ms"), faces.size(), t * 1000 / cv::getTickFrequency()));
 
+	// If there's a face, write it on a stack cv::Rect and return true
+	// otherwise return false
+
 	if (!faces.empty())
 	{
-		f = cv::Rect(
+		Face = cv::Rect(
 			cv::Point(cvRound(faces[0].x*scale), cvRound(faces[0].y*scale)),
 			cv::Point(cvRound((faces[0].x + faces[0].width - 1)*scale), cvRound((faces[0].y + faces[0].height - 1)*scale))
 		);
-	}
 
-	return f;
+		return true;
+	}
+	else {
+		return false;
+	}
 }

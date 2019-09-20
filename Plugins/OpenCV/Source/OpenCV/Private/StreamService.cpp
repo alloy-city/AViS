@@ -37,11 +37,15 @@ void Listen(bool * KeepServing, Webcam* Camera)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("THREAD Client connected!"));
 
+		// Get pointer to the stackBuffer, on WebcamReader
+
 		while (*KeepServing)
 		{
-			char * Frame = Camera->GetFrame();
-			send(client, Frame, Camera->GetFrameNumberOfBytes(), 0);
-			std::this_thread::sleep_for(std::chrono::milliseconds((long long) (1000 / Camera->FrameRate)));
+			if (Camera->GetFrame())
+			{
+				send(client, Camera->GetVideoBuffer(), Camera->GetFrameNumberOfBytes(), 0);
+				std::this_thread::sleep_for(std::chrono::milliseconds((long long) (1000 / Camera->FrameRate)));
+			}
 		}
 
 		closesocket(client);

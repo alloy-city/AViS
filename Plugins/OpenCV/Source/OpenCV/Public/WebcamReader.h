@@ -37,7 +37,7 @@ public:
 	float FrameRate = 15;
 
 	// Network buffer
-	char stackBuffer[60000];
+	char VideoBuffer[60000];
 
 	// Face Detection
 	cv::CascadeClassifier FaceCascade, EyesCascade;
@@ -52,8 +52,10 @@ public:
 	// Methods
 	void UpdateFrame();
 	void TurnOff();
-	char* GetFrame();
+	bool GetFrame();
 	int GetFrameNumberOfBytes();
 	// void StartStreamService();
-	cv::Rect detectAndDraw(cv::Mat& img, cv::CascadeClassifier& ccFace, cv::CascadeClassifier& ccEye, double scale, bool tryflip);
+	bool DetectFace(cv::Mat& img, cv::CascadeClassifier& ccFace, cv::CascadeClassifier& ccEye, double scale, bool tryflip);
+
+	char* GetVideoBuffer();
 };
