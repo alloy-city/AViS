@@ -14,6 +14,8 @@
 #include "Runtime/Core/Public/Math/Color.h"
 #include "Runtime/Core/Public/Math/Vector2D.h"
 
+#define VIDEO_BUFFER_MAX 65000
+
 class OPENCV_API Webcam
 {
 public:
@@ -25,29 +27,31 @@ public:
 	FVector2D VideoSize, ResizeDimensions;
 	int8 CameraID;
 	cv::Mat Frame;
-	cv::Mat CroppedFrame;
+	cv::Mat CroppedFrame, ResizedFrame;
 	std::vector<uchar> CompressedFrame;
 	std::vector<int> CompressionParams;
-	cv::Size SmallestSize = cv::Size(10, 10);
 	cv::VideoCapture Stream;
 	cv::Size Size;
 	TArray<FColor>* FaceData;
 	// std::thread StreamServer;
 	int FrameNumberOfBytes;
-	float FrameRate = 15;
+	float FrameRate = 8;
 
 	// Network buffer
-	char VideoBuffer[60000];
+	char VideoBuffer[VIDEO_BUFFER_MAX];
 
 	// Face Detection
 	cv::CascadeClassifier FaceCascade, EyesCascade;
 	cv::String FaceCascadeFile, EyesCascadeFile;
 	std::vector<cv::Rect> faces, faces2;
-	cv::Rect r, Face;
+	cv::Rect Face = cv::Rect(0, 0, 10, 10);
 	cv::Mat smallImgROI;
 	cv::Point center;
 	cv::Scalar color;
 	int radius;
+	float Margin = 0.2;
+	cv::Size FaceResolution = cv::Size(128, 128);
+	int CompressionQuality = 90;
 
 	// Methods
 	void UpdateFrame();

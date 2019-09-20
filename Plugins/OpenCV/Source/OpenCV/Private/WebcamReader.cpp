@@ -91,14 +91,20 @@ bool Webcam::GetFrame()
 
 		// If DetectFace returns false, return false
 		// otherwise crop, compress, write to stackBuffer and return true
-		if (DetectFace(Frame, FaceCascade, EyesCascade, 4, false))
+		if (DetectFace(Frame, FaceCascade, EyesCascade, 2, false))
 		{
 			Frame(Face).copyTo(CroppedFrame);
-			CompressionParams.push_back(cv::IMWRITE_JPEG_QUALITY);
-			CompressionParams.push_back(80);
 
-			cv::imencode(".jpg", CroppedFrame, CompressedFrame, CompressionParams);
+			// TODO: Resize frame to fixed size
+			cv::resize(CroppedFrame, ResizedFrame, FaceResolution);
+
+			CompressionParams.push_back(cv::IMWRITE_JPEG_QUALITY);
+			CompressionParams.push_back(CompressionQuality);
+
+			cv::imencode(".jpg", ResizedFrame, CompressedFrame, CompressionParams);
 			FrameNumberOfBytes = CompressedFrame.size() * sizeof(uchar);
+
+			if (FrameNumberOfBytes > VIDEO_BUFFER_MAX) return false;
 
 			for (int i=0; i<CompressedFrame.size(); i++)
 			{
@@ -111,8 +117,10 @@ bool Webcam::GetFrame()
 			return false;
 		}
 	}
-
-	return 0;
+	else {
+		Stream.open(CameraID);
+		return false;
+	}
 }
 
 int Webcam::GetFrameNumberOfBytes()
@@ -166,30 +174,49 @@ bool Webcam::DetectFace(
 			1.1,
 			2,
 			// 0,
-			// cv::CASCADE_FIND_BIGGEST_OBJECT,
-			cv::CASCADE_DO_ROUGH_SEARCH,
-			// | cv::CASCADE_SCALE_IMAGE,
-			cv::Size(25, 25),
-			cv::Size(125, 125)
+			cv::CASCADE_FIND_BIGGEST_OBJECT,
+			// cv::CASCADE_DO_ROUGH_SEARCH,
+			// cv::CASCADE_SCALE_IMAGE,
+			cv::Size(scale*6, scale*6),
+			cv::Size(scale*40, scale*40)
 		);
 	}
 
 	t = (double)cv::getTickCount() - t;
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT("%i faces detected in %f ms"), faces.size(), t * 1000 / cv::getTickFrequency()));
-
-	// If there's a face, write it on a stack cv::Rect and return true
-	// otherwise return false
+	// UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT("%i faces detected in %f ms"), faces.size(), t * 1000 / cv::getTickFrequency()));
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT("%d x %d"), img.rows, img.cols));
 
 	if (!faces.empty())
 	{
-		Face = cv::Rect(
-			cv::Point(cvRound(faces[0].x*scale), cvRound(faces[0].y*scale)),
-			cv::Point(cvRound((faces[0].x + faces[0].width - 1)*scale), cvRound((faces[0].y + faces[0].height - 1)*scale))
-		);
+		if (faces[0].x > 20 && faces[0].y >= 20)
+		{
+			center.x = cvRound((faces[0].x + faces[0].width*0.5)*scale);
+			center.y = cvRound((faces[0].y + faces[0].height*0.5)*scale);
+			int side = cvRound((faces[0].width + faces[0].height) * 0.25 * scale * (1 + Margin)) * 2;
 
-		return true;
+			Face = cv::Rect(center.x - side/2, center.y - side/2, side, side);
+
+			// debugging
+			cv::rectangle(img, Face, color, 3, 8, 0);
+			/*UE_LOG(
+				LogTemp,
+				Warning,
+				TEXT("%s"), 
+				*FString::Printf(
+					TEXT("Faces: %i | X: %d | Y: %d"),
+					faces.size(),
+					center.x,
+					center.y
+				)
+			);*/
+
+
+		}
 	}
-	else {
-		return false;
-	}
+
+	// Debugging
+	cv::imshow("AViS Sending", img);
+	cv::waitKey(1);
+
+	return true;
 }
