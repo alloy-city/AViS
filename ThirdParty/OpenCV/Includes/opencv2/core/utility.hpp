@@ -49,9 +49,9 @@
 #  error utility.hpp header must be compiled as C++
 #endif
 
-// #if defined(check)
-// #  warning Detected Apple 'check' macro definition, it can cause build conflicts. Please, include this header before any Apple headers.
-// #endif
+//#if defined(check)
+//#  warning Detected Apple 'check' macro definition, it can cause build conflicts. Please, include this header before any Apple headers.
+//#endif
 
 #include "opencv2/core.hpp"
 #include <ostream>
@@ -945,7 +945,7 @@ public:
     Returns false if error occurred while accessing the parameters (bad conversion, missing arguments,
     etc.). Call @ref printErrors to print error messages list.
      */
-    // bool check() const;
+    bool check2() const;
 
     /** @brief Set the about message
 

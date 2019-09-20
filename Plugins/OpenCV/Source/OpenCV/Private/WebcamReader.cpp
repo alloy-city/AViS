@@ -88,10 +88,10 @@ char* Webcam::GetFrame()
 
 		/* ----------------------WIP-------------------- */
 		// cv::Mat clone = Frame.clone();
-		detectAndDraw(Frame, FaceCascade, EyesCascade, 4, false);
+		// Face = detectAndDraw(Frame, FaceCascade, EyesCascade, 4, false);
 		/* --------------------------------------------- */
 
-		Frame(cv::Rect(70, 70, 100, 100)).copyTo(CroppedFrame); // image will be 100x100
+		Frame(detectAndDraw(Frame, FaceCascade, EyesCascade, 4, false)).copyTo(CroppedFrame); // image will be 100x100
 		// cv::Size s = CroppedFrame.size();
 
 		// UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT(">> Image size: %d X %d"), s.height, s.width));
@@ -139,13 +139,14 @@ void Webcam::TurnOff()
 	cv::destroyAllWindows();
 }
 
-void Webcam::detectAndDraw(
+cv::Rect Webcam::detectAndDraw(
 	cv::Mat& img,
 	cv::CascadeClassifier& cascade,
 	cv::CascadeClassifier& nestedCascade,
 	double scale,
 	bool tryflip )
 {
+	cv::Rect f(10, 10, 10, 10);
 	// UE_LOG(LogTemp, Warning, TEXT("Webcam::detectAndDraw"));
 
 	double t = 0;
@@ -185,68 +186,18 @@ void Webcam::detectAndDraw(
 			cv::Size(25, 25),
 			cv::Size(125, 125)
 		);
-
-		if (tryflip)
-		{
-			flip(smallImg, smallImg, 1);
-			cascade.detectMultiScale(smallImg, faces2,
-				1.1, 2, 0
-				//|CASCADE_FIND_BIGGEST_OBJECT
-				//|CASCADE_DO_ROUGH_SEARCH
-				| cv::CASCADE_SCALE_IMAGE,
-				cv::Size(30, 30));
-			for (std::vector<cv::Rect>::const_iterator r = faces2.begin(); r != faces2.end(); ++r)
-			{
-				faces.push_back(cv::Rect(smallImg.cols - r->x - r->width, r->y, r->width, r->height));
-			}
-		}
 	}
 
 	t = (double)cv::getTickCount() - t;
-
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT("%i faces detected in %f ms"), faces.size(), t * 1000 / cv::getTickFrequency()));
 
-	for (size_t i = 0; i < faces.size(); i++)
+	if (!faces.empty())
 	{
-		r = faces[i];
-		// std::vector<cv::Rect> nestedObjects;
-		
-		color = colors[i % 8];
-		
-		double aspect_ratio = (double)r.width / r.height;
-		if (0.75 < aspect_ratio && aspect_ratio < 1.3)
-		{
-			center.x = cvRound((r.x + r.width*0.5)*scale);
-			center.y = cvRound((r.y + r.height*0.5)*scale);
-			radius = cvRound((r.width + r.height)*0.25*scale);
-			circle(img, center, radius, color, 2, 8, 0);
-		}
-		else
-			rectangle(img, cv::Point(cvRound(r.x*scale), cvRound(r.y*scale)),
-				cv::Point(cvRound((r.x + r.width - 1)*scale), cvRound((r.y + r.height - 1)*scale)),
-				color, 3, 8, 0);
-		/*
-		if (nestedCascade.empty())
-			continue;
-		smallImgROI = smallImg(r);
-		nestedCascade.detectMultiScale(smallImgROI, nestedObjects,
-			1.1, 2, 0
-			//|CASCADE_FIND_BIGGEST_OBJECT
-			//|CASCADE_DO_ROUGH_SEARCH
-			//|CASCADE_DO_CANNY_PRUNING
-			| cv::CASCADE_SCALE_IMAGE,
-			cv::Size(30, 30));
-		for (size_t j = 0; j < nestedObjects.size(); j++)
-		{
-			cv::Rect nr = nestedObjects[j];
-			center.x = cvRound((r.x + nr.x + nr.width*0.5)*scale);
-			center.y = cvRound((r.y + nr.y + nr.height*0.5)*scale);
-			radius = cvRound((nr.width + nr.height)*0.25*scale);
-			circle(img, center, radius, color, 3, 8, 0);
-		}
-		*/
+		f = cv::Rect(
+			cv::Point(cvRound(faces[0].x*scale), cvRound(faces[0].y*scale)),
+			cv::Point(cvRound((faces[0].x + faces[0].width - 1)*scale), cvRound((faces[0].y + faces[0].height - 1)*scale))
+		);
 	}
-	
-	cv::imshow("AViS Sending", img);
-	cv::waitKey(1);
+
+	return f;
 }

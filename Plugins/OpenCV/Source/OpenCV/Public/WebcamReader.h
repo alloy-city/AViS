@@ -43,7 +43,7 @@ public:
 	cv::CascadeClassifier FaceCascade, EyesCascade;
 	cv::String FaceCascadeFile, EyesCascadeFile;
 	std::vector<cv::Rect> faces, faces2;
-	cv::Rect r;
+	cv::Rect r, Face;
 	cv::Mat smallImgROI;
 	cv::Point center;
 	cv::Scalar color;
@@ -55,5 +55,5 @@ public:
 	char* GetFrame();
 	int GetFrameNumberOfBytes();
 	// void StartStreamService();
-	void detectAndDraw(cv::Mat& img, cv::CascadeClassifier& ccFace, cv::CascadeClassifier& ccEye, double scale, bool tryflip);
+	cv::Rect detectAndDraw(cv::Mat& img, cv::CascadeClassifier& ccFace, cv::CascadeClassifier& ccEye, double scale, bool tryflip);
 };
