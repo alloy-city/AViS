@@ -7,7 +7,7 @@ Webcam::Webcam(TArray<FColor>* fd)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Webcam constructor"));
 
-	cv::namedWindow("AViS Sending", cv::WINDOW_NORMAL);
+	// cv::namedWindow("AViS Sending", cv::WINDOW_NORMAL);
 
 	// Initialize OpenCV and webcam properties
 	CameraID = 0;
@@ -184,7 +184,7 @@ bool Webcam::DetectFace(
 
 	t = (double)cv::getTickCount() - t;
 	// UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT("%i faces detected in %f ms"), faces.size(), t * 1000 / cv::getTickFrequency()));
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT("%d x %d"), img.rows, img.cols));
+	// UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::Printf(TEXT("%d x %d"), img.rows, img.cols));
 
 	if (!faces.empty())
 	{
@@ -215,8 +215,8 @@ bool Webcam::DetectFace(
 	}
 
 	// Debugging
-	cv::imshow("AViS Sending", img);
-	cv::waitKey(1);
+	// cv::imshow("AViS Sending", img);
+	// cv::waitKey(1);
 
 	return true;
 }

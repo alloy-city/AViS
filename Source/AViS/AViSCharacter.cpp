@@ -199,30 +199,30 @@ void AAViSCharacter::UpdateTexture()
 
 void AAViSCharacter::StartDecoder()
 {
-	if (decoder == NULL) decoder = new Decoder();
+	// if (decoder == NULL) decoder = new Decoder(VideoTexture);
 }
 
 bool AAViSCharacter::IsDecoderReady()
 {
-	if (decoder != NULL) return true;
+	// if (decoder != NULL) return true;
 	return false;
 }
 
 void AAViSCharacter::ApplyFace(TArray<uint8> buffer)
 {
 	// UE_LOG(LogTemp, Warning, TEXT("[AAViSCharacter::ApplyFace]"));
-
+	/*
 	if (decoder == NULL)
 	{
 		StartDecoder();
 		return;
 	}
 
-	decoder->Decode(&buffer);
-	
-	// 4. VideoTexture->UpdateTextureRegions(Decoder.Frame)
+	decoder->Decode(&buffer, VideoTexture);
+	*/
+	// VideoTexture->UpdateTextureRegions(decoder.Pixels);
 
-	// VideoTexture->UpdateTextureRegions((int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * Camera->VideoSize.X), (uint32)4, (uint8*)FaceData.GetData(), false);
+	// VideoTexture->UpdateTextureRegions((int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * 128), (uint32)4, (uint8*)decoder->Pixels.GetData(), false);
 }
 
 // Should be called by child class only when:

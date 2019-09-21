@@ -20,14 +20,31 @@
 class OPENCV_API Decoder
 {
 public:
-	Decoder();
+	Decoder(UTexture2D* vt);
 	~Decoder();
 
+	FVector2D VideoSize = FVector2D(128, 128);
+	UTexture2D* VideoTexture;
 	TArray<uint8>* Buffer;
-	cv::Mat Frame;
+	cv::Mat Frame, decodedImage;
 	std::vector<int> CompressionParams;
 	cv::Mat rawData;
+	TArray<FColor> Pixels;
+	FUpdateTextureRegion2D* VideoUpdateTextureRegion;
 
-	void Decode(TArray<uint8>*);
-	void UpdateTexture(UTexture2D* Face);
+	void Decode(TArray<uint8>*, UTexture2D* vt);
+	void UpdateTexture();
+
+
+
+	void UpdateTextureRegions(
+		UTexture2D* Texture,
+		int32 MipIndex,
+		uint32 NumRegions,
+		FUpdateTextureRegion2D* Regions,
+		uint32 SrcPitch,
+		uint32 SrcBpp,
+		uint8* SrcData,
+		bool bFreeData
+	);
 };

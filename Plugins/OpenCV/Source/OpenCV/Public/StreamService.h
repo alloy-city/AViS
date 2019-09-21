@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -12,9 +11,6 @@
 #include <thread>
 #include "CoreMinimal.h"
 
-/**
- * 
- */
 class OPENCV_API StreamService
 {
 public:
