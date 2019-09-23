@@ -35,7 +35,7 @@ public:
 	TArray<FColor>* FaceData;
 	// std::thread StreamServer;
 	int FrameNumberOfBytes;
-	float FrameRate = 8;
+	float FrameRate = 30;
 
 	// Network buffer
 	char VideoBuffer[VIDEO_BUFFER_MAX];
@@ -51,7 +51,7 @@ public:
 	int radius;
 	float Margin = 0.2;
 	cv::Size FaceResolution = cv::Size(128, 128);
-	int CompressionQuality = 90;
+	int CompressionQuality = 80;
 
 	// Methods
 	void UpdateFrame();
