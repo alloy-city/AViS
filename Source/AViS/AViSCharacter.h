@@ -7,10 +7,6 @@
 #include "MovingPlatform.h"
 #include "WebcamReader.h"
 #include "UnrealNetwork.h"
-//#include "GameFramework/Actor.h"
-//#include "Runtime/Engine/Classes/Engine/Texture2D.h"
-//#include "Components/StaticMeshComponent.h"
-//#include "Materials/MaterialInstanceDynamic.h"
 #include "Decoder.h"
 #include "AViSCharacter.generated.h"
 
