@@ -13,7 +13,7 @@
 #include "ConstructorHelpers.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Components/StaticMeshComponent.h"
-#include "AViSCharacter.h"
+#include "Avatar.h"
 #include "UnrealNetwork.h"
 #include "AViSGameInstance.generated.h"
 
@@ -26,7 +26,7 @@ private:
 	Webcam* Camera;
 	StreamService* SS;
 	UMaterialInstanceDynamic* dm;
-	AAViSCharacter* Character;
+	AAvatar* Character;
 	UMaterial* testMaterial0;
 
 public:

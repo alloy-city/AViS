@@ -1,7 +1,7 @@
 
 #include "AViSGameMode.h"
 #include "AViSHUD.h"
-#include "AViSCharacter.h"
+#include "Avatar.h"
 #include "UObject/ConstructorHelpers.h"
 
 AAViSGameMode::AAViSGameMode() : Super()

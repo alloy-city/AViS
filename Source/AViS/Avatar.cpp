@@ -1,6 +1,5 @@
-// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
-#include "AViSCharacter.h"
+#include "Avatar.h"
 #include "AViSProjectile.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
@@ -11,14 +10,12 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "UnrealNetwork.h"
-#include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include "XRMotionControllerBase.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
-//////////////////////////////////////////////////////////////////////////
-// AAViSCharacter
-
-AAViSCharacter::AAViSCharacter()
+// Sets default values
+AAvatar::AAvatar()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(40.f, 80.0f);
@@ -67,8 +64,6 @@ AAViSCharacter::AAViSCharacter()
 	L_MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("L_MotionController"));
 	L_MotionController->SetupAttachment(RootComponent);
 
-	// Create a gun and attach it to the right-hand VR controller.
-	// Create a gun mesh component
 	VR_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("VR_Gun"));
 	VR_Gun->SetOnlyOwnerSee(false);
 	VR_Gun->bCastDynamicShadow = false;
@@ -79,13 +74,11 @@ AAViSCharacter::AAViSCharacter()
 	VR_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("VR_MuzzleLocation"));
 	VR_MuzzleLocation->SetupAttachment(VR_Gun);
 	VR_MuzzleLocation->SetRelativeLocation(FVector(0.000004, 53.999992, 10.000000));
-	VR_MuzzleLocation->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));		// Counteract the rotation of the VR gun model.
-
-	// Uncomment the following line to turn motion controllers on by default:
-	//bUsingMotionControllers = true;
+	VR_MuzzleLocation->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));
 }
 
-void AAViSCharacter::BeginPlay()
+// Called when the game starts or when spawned
+void AAvatar::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
@@ -106,10 +99,14 @@ void AAViSCharacter::BeginPlay()
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////
-// Input
+// Called every frame
+void AAvatar::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
 
-void AAViSCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+}
+
+void AAvatar::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
@@ -119,19 +116,19 @@ void AAViSCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind movement events
-	PlayerInputComponent->BindAxis("MoveForward", this, &AAViSCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &AAViSCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("MoveForward", this, &AAvatar::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &AAvatar::MoveRight);
 
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
 	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis("TurnRate", this, &AAViSCharacter::TurnAtRate);
+	PlayerInputComponent->BindAxis("TurnRate", this, &AAvatar::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("LookUpRate", this, &AAViSCharacter::LookUpAtRate);
+	PlayerInputComponent->BindAxis("LookUpRate", this, &AAvatar::LookUpAtRate);
 }
 
-void AAViSCharacter::MoveForward(float Value)
+void AAvatar::MoveForward(float Value)
 {
 	if (Value != 0.0f)
 	{
@@ -140,7 +137,7 @@ void AAViSCharacter::MoveForward(float Value)
 	}
 }
 
-void AAViSCharacter::MoveRight(float Value)
+void AAvatar::MoveRight(float Value)
 {
 	if (Value != 0.0f)
 	{
@@ -149,32 +146,24 @@ void AAViSCharacter::MoveRight(float Value)
 	}
 }
 
-void AAViSCharacter::TurnAtRate(float Rate)
+void AAvatar::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 }
 
-void AAViSCharacter::LookUpAtRate(float Rate)
+void AAvatar::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-void AAViSCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+//void AAvatar::Tick(float DeltaTime)
+//{
+//	Super::Tick(DeltaTime);
+//}
 
-	/*RefreshTimer += DeltaTime;
-	if (Camera != NULL && Camera->IsStreamOpen && RefreshTimer >= 1.0f / RefreshRate)
-	{
-		RefreshTimer -= 1.0f / RefreshRate;
-		Camera->UpdateFrame();
-		UpdateTexture();
-	}*/
-}
-
-void AAViSCharacter::UpdateTexture()
+void AAvatar::UpdateTexture()
 {
 	// UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::UpdateTexture"));
 
@@ -197,18 +186,18 @@ void AAViSCharacter::UpdateTexture()
 	}
 }
 
-void AAViSCharacter::StartDecoder()
+void AAvatar::StartDecoder()
 {
 	// if (decoder == NULL) decoder = new Decoder(VideoTexture);
 }
 
-bool AAViSCharacter::IsDecoderReady()
+bool AAvatar::IsDecoderReady()
 {
 	// if (decoder != NULL) return true;
 	return false;
 }
 
-void AAViSCharacter::ApplyFace(TArray<uint8> buffer)
+void AAvatar::ApplyFace(TArray<uint8> buffer)
 {
 	// UE_LOG(LogTemp, Warning, TEXT("[AAViSCharacter::ApplyFace]"));
 	/*
@@ -228,14 +217,14 @@ void AAViSCharacter::ApplyFace(TArray<uint8> buffer)
 // Should be called by child class only when:
 // 1. is not the server
 // 2. is not possessed by the game instance controller
-void AAViSCharacter::ConnectToFaceFeedSource()
+void AAvatar::ConnectToFaceFeedSource()
 {
 	UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::ConnectToFaceFeedSource"));
 }
 
 // Try to update texture in BP, when Multicast event arrives from the server
 // Look into UTexture2D::UpdateTextureRegions
-void AAViSCharacter::UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData)
+void AAvatar::UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData)
 {
 	UE_LOG(LogTemp, Warning, TEXT("AAViSCharacter::UpdateTextureRegions"));
 

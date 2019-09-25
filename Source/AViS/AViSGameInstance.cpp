@@ -48,7 +48,7 @@ void UAViSGameInstance::TurnCameraOn()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Turn camera ON"));
 
-	Character = (AAViSCharacter*) GetFirstLocalPlayerController()->AcknowledgedPawn;
+	Character = (AAvatar*) GetFirstLocalPlayerController()->AcknowledgedPawn;
 	Camera = new Webcam(&Character->FaceData);
 
 	SS = new StreamService();
