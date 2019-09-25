@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -7,7 +6,6 @@
 #include "MovingPlatform.h"
 #include "WebcamReader.h"
 #include "UnrealNetwork.h"
-#include "Decoder.h"
 #include "Avatar.generated.h"
 
 class UInputComponent;
@@ -57,7 +55,6 @@ public:
 	Webcam* Camera = NULL;
 	float RefreshTimer = 0.0;
 	float RefreshRate = 2;
-	Decoder* decoder;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Webcam)
 	UTexture2D* VideoTexture;

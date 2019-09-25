@@ -37,8 +37,6 @@ void Listen(bool * KeepServing, Webcam* Camera)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("THREAD Client connected!"));
 
-		// Get pointer to the stackBuffer, on WebcamReader
-
 		while (*KeepServing)
 		{
 			if (Camera->GetFrame())
