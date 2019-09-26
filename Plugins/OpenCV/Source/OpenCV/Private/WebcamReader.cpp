@@ -3,7 +3,7 @@
 #include "OpenCV.h"
 #include "WebcamReader.h"
 
-Webcam::Webcam(TArray<FColor>* fd)
+Webcam::Webcam()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Webcam constructor"));
 
@@ -17,9 +17,7 @@ Webcam::Webcam(TArray<FColor>* fd)
 	ResizeDimensions = FVector2D(320, 240);
 	Stream = cv::VideoCapture();
 	Frame = cv::Mat();
-	FaceData = fd;
 
-	//-- 1. Load the cascades
 	FaceCascadeFile = cv::String("C:/AViS/Plugins/OpenCV/Resources/Data/haarcascades/haarcascade_frontalface_default.xml");
 	EyesCascadeFile = cv::String("C:/AViS/Plugins/OpenCV/Resources/Data/haarcascades/haarcascade_eye.xml");
 
@@ -32,18 +30,12 @@ Webcam::Webcam(TArray<FColor>* fd)
 		UE_LOG(LogTemp, Warning, TEXT("[Webcam::Webcam] Error loading eye cascade"));
 	};
 
-	// Open the stream
 	Stream.open(CameraID);
 	if (Stream.isOpened())
 	{
-		// Initialize stream
 		IsStreamOpen = true;
-		// UpdateFrame();
 		VideoSize = FVector2D(Frame.cols, Frame.rows);
 		Size = cv::Size(ResizeDimensions.X, ResizeDimensions.Y);
-
-		// Initialize data array
-		FaceData->Init(FColor(0, 0, 0, 255), VideoSize.X * VideoSize.Y);
 	}
 }
 

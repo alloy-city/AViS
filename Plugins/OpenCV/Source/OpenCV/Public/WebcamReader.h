@@ -20,7 +20,7 @@ class OPENCV_API Webcam
 {
 public:
 	// Constructor
-	Webcam(TArray<FColor>*);
+	Webcam();
 
 	// Propreties
 	bool ShouldResize, IsStreamOpen, KeepServing;
@@ -32,7 +32,6 @@ public:
 	std::vector<int> CompressionParams;
 	cv::VideoCapture Stream;
 	cv::Size Size;
-	TArray<FColor>* FaceData;
 	// std::thread StreamServer;
 	int FrameNumberOfBytes;
 	float FrameRate = 30;

@@ -49,8 +49,6 @@ class AVIS_API AAvatar : public ACharacter
 public:
 	AAvatar();
 	virtual void Tick(float DeltaSeconds) override;
-	void UpdateTexture();
-	void UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData);
 
 	Webcam* Camera = NULL;
 	float RefreshTimer = 0.0;
@@ -66,18 +64,6 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void InformServerCameraIsOff();
-
-	UFUNCTION(BlueprintCallable, Category = Gameplay)
-	void ApplyFace(TArray<uint8> buffer);
-
-	UFUNCTION(BlueprintCallable, Category = Gameplay)
-	void ConnectToFaceFeedSource();
-
-	UFUNCTION(BlueprintCallable, Category = Gameplay)
-	void StartDecoder();
-
-	UFUNCTION(BlueprintCallable, Category = Gameplay)
-	bool IsDecoderReady();
 
 	// SUPER IMPORTANT: The Face
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)

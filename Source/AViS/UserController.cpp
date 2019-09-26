@@ -4,5 +4,5 @@
 void AUserController::PostLogin(APlayerController * NewPlayer)
 {
 	Super();
-	UE_LOG(LogTemp, Warning, TEXT("Player joined with AAViSPlayerController."));
+	UE_LOG(LogTemp, Warning, TEXT("Player joined with AUserController."));
 }
