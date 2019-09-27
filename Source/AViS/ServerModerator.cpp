@@ -1,14 +1,17 @@
 
-#include "Classroom0GameMode.h"
+#include "ServerModerator.h"
 
-AClassroom0GameMode::AClassroom0GameMode()
+AServerModerator::AServerModerator()
 {
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/Blueprints/AViSAvatar"));
+	DefaultPawnClass = PlayerPawnClassFinder.Class;
+	HUDClass = AAViSHUD::StaticClass();
 	HTTP = &FHttpModule::Get();
 	WorldContext = FWorldContext();
-	UE_LOG(LogTemp, Warning, TEXT("AClassroom0GameMode instantiated"));
+	UE_LOG(LogTemp, Warning, TEXT("AServerModerator instantiated"));
 }
 
-void AClassroom0GameMode::PostLogin(APlayerController* NewPlayer)
+void AServerModerator::PostLogin(APlayerController* NewPlayer)
 {
 	GenericPlayerInitialization(NewPlayer);
 	K2_PostLogin(NewPlayer);
@@ -23,7 +26,7 @@ void AClassroom0GameMode::PostLogin(APlayerController* NewPlayer)
 	}
 }
 
-void AClassroom0GameMode::Logout(AController* Exiting)
+void AServerModerator::Logout(AController* Exiting)
 {
 	--NumberOfPlayers;
 	if (HasAuthority() && WorldContext.RunAsDedicated) {
@@ -31,10 +34,10 @@ void AClassroom0GameMode::Logout(AController* Exiting)
 	}
 }
 
-void AClassroom0GameMode::APICall()
+void AServerModerator::APICall()
 {
 	TSharedRef<IHttpRequest> Request = HTTP->CreateRequest();
-	Request->OnProcessRequestComplete().BindUObject(this, &AClassroom0GameMode::OnAPIResponse);
+	Request->OnProcessRequestComplete().BindUObject(this, &AServerModerator::OnAPIResponse);
 	Request->SetURL("http://127.0.0.1:42000/api/auth/find");
 	Request->SetVerb("POST");
 	Request->SetHeader(TEXT("User-Agent"), "X-UnrealEngine-Agent");
@@ -43,15 +46,11 @@ void AClassroom0GameMode::APICall()
 	Request->ProcessRequest();
 }
 
-void AClassroom0GameMode::OnAPIResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+void AServerModerator::OnAPIResponse(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
-	//Create a pointer to hold the json serialized data
 	TSharedPtr<FJsonObject> JsonObject;
-
-	//Create a reader pointer to read the json data
 	TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
 
-	//Deserialize the json data given Reader and the actual object to deserialize
 	if (FJsonSerializer::Deserialize(Reader, JsonObject))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *JsonObject->GetStringField("id"));

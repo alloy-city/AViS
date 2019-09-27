@@ -2,21 +2,23 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AViSGameMode.h"
 #include "GameFramework/GameModeBase.h"
 #include "Runtime/Online/HTTP/Public/Http.h"
 #include "Runtime/Json/Public/Dom/JsonObject.h"
 #include "Runtime/Json/Public/Serialization/JsonReader.h"
 #include "Runtime/Json/Public/Serialization/JsonSerializer.h"
 #include "Runtime/Engine/Classes/Engine/Engine.h"
-#include "Classroom0GameMode.generated.h"
+#include "AViSHUD.h"
+#include "Avatar.h"
+#include "UObject/ConstructorHelpers.h"
+#include "ServerModerator.generated.h"
 
 UCLASS()
-class AVIS_API AClassroom0GameMode : public AAViSGameMode
+class AVIS_API AServerModerator : public AGameModeBase
 {
 	GENERATED_BODY()
 public:
-	AClassroom0GameMode();
+	AServerModerator();
 	void PostLogin(APlayerController* NewPlayer) override;
 	void Logout(AController* Exiting) override;
 	void APICall();

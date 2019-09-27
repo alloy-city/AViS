@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -15,10 +14,10 @@
 #include "Components/StaticMeshComponent.h"
 #include "Avatar.h"
 #include "UnrealNetwork.h"
-#include "AViSGameInstance.generated.h"
+#include "ClientInstance.generated.h"
 
 UCLASS()
-class AVIS_API UAViSGameInstance : public UGameInstance
+class AVIS_API UClientInstance : public UGameInstance
 {
 	GENERATED_BODY()
 private:
@@ -30,18 +29,18 @@ private:
 	UMaterial* testMaterial0;
 
 public:
-	UAViSGameInstance(const FObjectInitializer & ObjectInitializer);
+	UClientInstance(const FObjectInitializer & ObjectInitializer);
 	virtual void Init();
 
 	UFUNCTION(Exec)
-	void Join(const FString& Address);
+		void Join(const FString& Address);
 
 	UFUNCTION(Exec)
-	void TurnCameraOn();
+		void TurnCameraOn();
 
 	UFUNCTION(Exec)
-	void TurnCameraOff();
+		void TurnCameraOff();
 
 	UFUNCTION(Exec)
-	void ChangeMaterial();
+		void ChangeMaterial();
 };

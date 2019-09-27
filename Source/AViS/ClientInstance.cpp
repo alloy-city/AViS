@@ -1,7 +1,7 @@
 
-#include "AViSGameInstance.h"
+#include "ClientInstance.h"
 
-UAViSGameInstance::UAViSGameInstance(const FObjectInitializer & ObjectInitializer)
+UClientInstance::UClientInstance(const FObjectInitializer & ObjectInitializer)
 {
 	UE_LOG(LogTemp, Warning, TEXT("GameInstance Constructor"));
 
@@ -24,15 +24,15 @@ UAViSGameInstance::UAViSGameInstance(const FObjectInitializer & ObjectInitialize
 	}
 }
 
-void UAViSGameInstance::Init()
+void UClientInstance::Init()
 {
 	UE_LOG(LogTemp, Warning, TEXT("GameInstance Init"));
 }
 
-void UAViSGameInstance::Join(const FString& Address)
+void UClientInstance::Join(const FString& Address)
 {
 	UE_LOG(LogTemp, Warning, TEXT("GameInstance Join function"));
-	
+
 	UEngine* Engine = GetEngine();
 	if (!ensure(Engine != nullptr)) return;
 
@@ -44,11 +44,11 @@ void UAViSGameInstance::Join(const FString& Address)
 	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
 }
 
-void UAViSGameInstance::TurnCameraOn()
+void UClientInstance::TurnCameraOn()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Turn camera ON"));
 
-	Character = (AAvatar*) GetFirstLocalPlayerController()->AcknowledgedPawn;
+	Character = (AAvatar*)GetFirstLocalPlayerController()->AcknowledgedPawn;
 	Camera = new Webcam();
 
 	SS = new StreamService();
@@ -59,7 +59,7 @@ void UAViSGameInstance::TurnCameraOn()
 	Character->InformServerCameraIsOn();
 }
 
-void UAViSGameInstance::TurnCameraOff()
+void UClientInstance::TurnCameraOff()
 {
 	if (Camera)
 	{
@@ -76,7 +76,7 @@ void UAViSGameInstance::TurnCameraOff()
 	}
 }
 
-void UAViSGameInstance::ChangeMaterial()
+void UClientInstance::ChangeMaterial()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Change Material"));
 }
