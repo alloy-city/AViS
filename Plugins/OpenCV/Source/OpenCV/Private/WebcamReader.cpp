@@ -7,7 +7,10 @@ Webcam::Webcam()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Webcam constructor"));
 
-	// cv::namedWindow("AViS Sending", cv::WINDOW_NORMAL);
+	if (Debug)
+	{
+		cv::namedWindow("AViS Sending", cv::WINDOW_NORMAL);
+	}
 
 	// Initialize OpenCV and webcam properties
 	CameraID = 0;
@@ -206,9 +209,11 @@ bool Webcam::DetectFace(
 		}
 	}
 
-	// Debugging
-	// cv::imshow("AViS Sending", img);
-	// cv::waitKey(1);
+	if (Debug)
+	{
+		cv::imshow("AViS Sending", img);
+		cv::waitKey(1);
+	}
 
 	return true;
 }

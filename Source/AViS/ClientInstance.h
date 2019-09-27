@@ -26,21 +26,20 @@ private:
 	StreamService* SS;
 	UMaterialInstanceDynamic* dm;
 	AAvatar* Character;
-	UMaterial* testMaterial0;
 
 public:
 	UClientInstance(const FObjectInitializer & ObjectInitializer);
 	virtual void Init();
 
 	UFUNCTION(Exec)
-		void Join(const FString& Address);
+	void Join(const FString& Address);
 
 	UFUNCTION(Exec)
-		void TurnCameraOn();
+	void TurnCameraOn();
 
 	UFUNCTION(Exec)
-		void TurnCameraOff();
+	void TurnCameraOff();
 
 	UFUNCTION(Exec)
-		void ChangeMaterial();
+	void DebugVideoCapture();
 };

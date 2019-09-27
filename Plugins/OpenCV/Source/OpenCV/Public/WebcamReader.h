@@ -51,6 +51,7 @@ public:
 	float Margin = 0.2;
 	cv::Size FaceResolution = cv::Size(128, 128);
 	int CompressionQuality = 80;
+	bool Debug = false;
 
 	// Methods
 	void UpdateFrame();

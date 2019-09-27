@@ -15,13 +15,6 @@ UClientInstance::UClientInstance(const FObjectInitializer & ObjectInitializer)
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"));
 	}
-
-	// Get other materials for testing
-	static ConstructorHelpers::FObjectFinder<UMaterial> Material0(TEXT("Material'/Game/materials/M_Metal_Burnished_Steel.M_Metal_Burnished_Steel'"));
-	if (Material0.Object != NULL)
-	{
-		testMaterial0 = (UMaterial*)Material0.Object;
-	}
 }
 
 void UClientInstance::Init()
@@ -76,7 +69,7 @@ void UClientInstance::TurnCameraOff()
 	}
 }
 
-void UClientInstance::ChangeMaterial()
+void UClientInstance::DebugVideoCapture()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Change Material"));
+	Camera->Debug = !Camera->Debug;
 }
