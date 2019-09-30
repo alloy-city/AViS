@@ -7,6 +7,7 @@ Webcam::Webcam()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Webcam constructor"));
 
+// #if PLATFORM_WINDOWS
 	if (Debug)
 	{
 		cv::namedWindow("AViS Sending", cv::WINDOW_NORMAL);
@@ -40,12 +41,14 @@ Webcam::Webcam()
 		VideoSize = FVector2D(Frame.cols, Frame.rows);
 		Size = cv::Size(ResizeDimensions.X, ResizeDimensions.Y);
 	}
+// #endif
 }
 
 void Webcam::UpdateFrame()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Webcam::UpdateFrame"));
 
+// #if PLATFORM_WINDOWS
 	if (Stream.isOpened())
 	{
 		Stream.read(Frame);
@@ -57,6 +60,7 @@ void Webcam::UpdateFrame()
 	else {
 		IsStreamOpen = false;
 	}
+// #endif
 }
 
 char* Webcam::GetVideoBuffer()
@@ -66,6 +70,7 @@ char* Webcam::GetVideoBuffer()
 
 bool Webcam::GetFrame()
 {
+// #if PLATFORM_WINDOWS
 	if (Stream.isOpened())
 	{
 		// UE_LOG(LogTemp, Warning, TEXT("Webcam::GetFrame"));
@@ -116,6 +121,9 @@ bool Webcam::GetFrame()
 		Stream.open(CameraID);
 		return false;
 	}
+// #elif PLATFORM_LINUX
+	return false;
+// #endif
 }
 
 int Webcam::GetFrameNumberOfBytes()
@@ -125,10 +133,13 @@ int Webcam::GetFrameNumberOfBytes()
 
 void Webcam::TurnOff()
 {
+// #if PLATFORM_WINDOWS
 	Stream.release();
 	cv::destroyAllWindows();
+// #endif
 }
 
+// #if PLATFORM_WINDOWS
 bool Webcam::DetectFace(
 	cv::Mat& img,
 	cv::CascadeClassifier& cascade,
@@ -217,3 +228,4 @@ bool Webcam::DetectFace(
 
 	return true;
 }
+// #endif

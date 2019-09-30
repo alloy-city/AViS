@@ -1,12 +1,15 @@
 
 #pragma once
 
+#if PLATFORM_WINDOWS
+#include "WebcamReader.h"
+#include "StreamService.h"
+#endif
+
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Engine.h"
 #include "GameFramework/PlayerController.h"
-#include "WebcamReader.h"
-#include "StreamService.h"
 #include "Runtime/Engine/Classes/Components/PrimitiveComponent.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "ConstructorHelpers.h"
@@ -24,8 +27,10 @@ class AVIS_API UClientInstance : public UGameInstance
 	GENERATED_BODY()
 private:
 	UMaterial* m;
+#if PLATFORM_WINDOWS
 	Webcam* Camera;
 	StreamService* FaceStreamServer;
+#endif
 	UMaterialInstanceDynamic* dm;
 	AAvatar* Character;
 

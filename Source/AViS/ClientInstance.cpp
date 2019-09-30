@@ -42,15 +42,18 @@ void UClientInstance::TurnCameraOn()
 	UE_LOG(LogTemp, Warning, TEXT("Turn camera ON"));
 
 	Character = (AAvatar*)GetFirstLocalPlayerController()->AcknowledgedPawn;
+
+#if PLATFORM_WINDOWS
 	Camera = new Webcam();
 
 	FaceStreamServer = new StreamService();
 	FaceStreamServer->Camera = Camera;
 	FaceStreamServer->StartStreamService();
+#endif
 
 	bool canBind = false;
 	TSharedRef<FInternetAddr> localIp = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->GetLocalHostAddr(*GLog, canBind);
-	Character->Camera = Camera;
+	// Character->Camera = Camera;
 
 	if (localIp->IsValid())
 	{
@@ -64,6 +67,7 @@ void UClientInstance::TurnCameraOn()
 
 void UClientInstance::TurnCameraOff()
 {
+#if PLATFORM_WINDOWS
 	if (Camera)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Turn camera OFF"));
@@ -77,9 +81,12 @@ void UClientInstance::TurnCameraOff()
 		UE_LOG(LogTemp, Warning, TEXT("My camera is already OFF"));
 		Character->InformServerCameraIsOff();
 	}
+#endif
 }
 
 void UClientInstance::DebugVideoCapture()
 {
+#if PLATFORM_WINDOWS
 	Camera->Debug = !Camera->Debug;
+#endif
 }

@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+// #if PLATFORM_WINDOWS
 #include "OpenCV.h"
+// #endif
+
 #include "StreamService.h"
 
 StreamService::StreamService()
@@ -14,6 +16,7 @@ StreamService::~StreamService()
 // This function is not a member function of the Webcam class
 // It's executed from another thread, so that the stream
 // service doesn't clog the main program.
+// #if PLATFORM_WINDOWS
 void Listen(bool * KeepServing, Webcam* Camera)
 {
 	WSADATA WSAData;
@@ -52,14 +55,19 @@ void Listen(bool * KeepServing, Webcam* Camera)
 
 	closesocket(server);
 }
+// #endif
 
 void StreamService::StartStreamService()
 {
+// #if PLATFORM_WINDOWS
 	KeepServing = true;
 	StreamServer = std::thread(Listen, &KeepServing, Camera);
+// #endif
 }
 
 void StreamService::StopStreamService()
 {
+// #if PLATFORM_WINDOWS
 	KeepServing = false;
+// #endif
 }

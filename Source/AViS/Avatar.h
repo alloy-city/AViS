@@ -3,7 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "WebcamReader.h"
+// #include "WebcamReader.h"
 #include "UnrealNetwork.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
@@ -28,7 +28,7 @@ public:
 	AAvatar();
 	virtual void Tick(float DeltaSeconds) override;
 
-	Webcam* Camera = NULL;
+	// Webcam* Camera = NULL;
 	float RefreshTimer = 0.0;
 	float RefreshRate = 2;
 
