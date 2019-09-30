@@ -44,9 +44,9 @@ void UClientInstance::TurnCameraOn()
 	Character = (AAvatar*)GetFirstLocalPlayerController()->AcknowledgedPawn;
 	Camera = new Webcam();
 
-	SS = new StreamService();
-	SS->Camera = Camera;
-	SS->StartStreamService();
+	FaceStreamServer = new StreamService();
+	FaceStreamServer->Camera = Camera;
+	FaceStreamServer->StartStreamService();
 
 	Character->Camera = Camera;
 	Character->InformServerCameraIsOn();
@@ -58,7 +58,7 @@ void UClientInstance::TurnCameraOff()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Turn camera OFF"));
 
-		SS->StopStreamService();
+		FaceStreamServer->StopStreamService();
 
 		Camera->TurnOff();
 		Character->InformServerCameraIsOff();

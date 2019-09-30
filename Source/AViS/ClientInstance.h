@@ -23,7 +23,7 @@ class AVIS_API UClientInstance : public UGameInstance
 private:
 	UMaterial* m;
 	Webcam* Camera;
-	StreamService* SS;
+	StreamService* FaceStreamServer;
 	UMaterialInstanceDynamic* dm;
 	AAvatar* Character;
 
