@@ -19,6 +19,7 @@ public class AViS : ModuleRules
             "JsonUtilities",
             "RHI",
             "RenderCore",
+            "Sockets",
             "OpenCV"
         });
 	}

@@ -48,8 +48,18 @@ void UClientInstance::TurnCameraOn()
 	FaceStreamServer->Camera = Camera;
 	FaceStreamServer->StartStreamService();
 
+	bool canBind = false;
+	TSharedRef<FInternetAddr> localIp = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->GetLocalHostAddr(*GLog, canBind);
 	Character->Camera = Camera;
-	Character->InformServerCameraIsOn();
+
+	if (localIp->IsValid())
+	{
+		Character->IpAddress = localIp->ToString(false);
+		Character->InformServerCameraIsOn();
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("Local IP is not valid"));
+	}
 }
 
 void UClientInstance::TurnCameraOff()

@@ -11,6 +11,7 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/InputSettings.h"
 #include "Kismet/GameplayStatics.h"
+#include <SocketSubsystem.h>
 #include "Avatar.generated.h"
 
 class UInputComponent;
@@ -30,6 +31,9 @@ public:
 	Webcam* Camera = NULL;
 	float RefreshTimer = 0.0;
 	float RefreshRate = 2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	FString IpAddress;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Webcam)
 	UTexture2D* VideoTexture;

@@ -14,6 +14,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "Avatar.h"
 #include "UnrealNetwork.h"
+#include "SocketSubsystem.h"
+#include "IPAddress.h"
 #include "ClientInstance.generated.h"
 
 UCLASS()
