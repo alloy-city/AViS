@@ -8,6 +8,9 @@ AServerModerator::AServerModerator()
 	HUDClass = AAViSHUD::StaticClass();
 	HTTP = &FHttpModule::Get();
 	WorldContext = FWorldContext();
+
+
+
 	UE_LOG(LogTemp, Warning, TEXT("AServerModerator instantiated"));
 }
 

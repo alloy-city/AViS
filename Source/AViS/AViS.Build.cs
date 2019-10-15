@@ -20,7 +20,11 @@ public class AViS : ModuleRules
             "RHI",
             "RenderCore",
             "Sockets",
-            "OpenCV"
+            "OpenCV",
+            "OnlineSubsystem",
+            "OnlineSubsystemUtils"
         });
-	}
+
+        DynamicallyLoadedModuleNames.Add("OnlineSubsystemNull");
+    }
 }

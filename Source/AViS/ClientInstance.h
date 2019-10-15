@@ -13,6 +13,13 @@
 #include "Runtime/Engine/Classes/Components/PrimitiveComponent.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "ConstructorHelpers.h"
+
+//**OSS**//
+#include "OnlineSubsystem.h"
+#include "OnlineSessionSettings.h"
+#include "OnlineSessionInterface.h"
+//****//
+
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Components/StaticMeshComponent.h"
 #include "Avatar.h"
@@ -39,6 +46,9 @@ public:
 	virtual void Init();
 
 	UFUNCTION(Exec)
+	void Host();
+
+	UFUNCTION(Exec)
 	void Join(const FString& Address);
 
 	UFUNCTION(Exec)
@@ -49,4 +59,12 @@ public:
 
 	UFUNCTION(Exec)
 	void DebugVideoCapture();
+
+private:
+	void OnCreateSessionComplete(FName SessionName, bool Success);
+	void OnFindSessionsComplete(bool Success);
+	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
+
+	IOnlineSessionPtr SessionInterface;
+	TSharedPtr<FOnlineSessionSearch> SessionSearch;
 };
