@@ -11,6 +11,8 @@
 
 #include <iostream>
 #include <thread>
+#include <assert.h>
+#include <future>
 #include "CoreMinimal.h"
 
 class OPENCV_API StreamService
@@ -19,7 +21,7 @@ public:
 	StreamService();
 	~StreamService();
 
-	bool KeepServing;
+	std::promise<void> exitSignal;
 
 // #if PLATFORM_WINDOWS
 	std::thread StreamServer;

@@ -34,20 +34,25 @@ void UClientInstance::Init()
 			SessionInterface->OnFindSessionsCompleteDelegates.AddUObject(this, &UClientInstance::OnFindSessionsComplete);
 			SessionInterface->OnJoinSessionCompleteDelegates.AddUObject(this, &UClientInstance::OnJoinSessionComplete);
 
-			SessionSearch = MakeShareable(new FOnlineSessionSearch());
-			if (SessionSearch.IsValid())
-			{
-				SessionSearch->bIsLanQuery = true;
-				UE_LOG(LogTemp, Warning, TEXT("Start finding sessions"));
-				SessionInterface->FindSessions(0, SessionSearch.ToSharedRef());
-			}
+			SearchLANSessionsJoinFirstFound();
 		}
 		else {
-			UE_LOG(LogTemp, Warning, TEXT("No session interface found"));
+			UE_LOG(LogTemp, Warning, TEXT("Session Interface is not valid"));
 		}
 	}
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("Found no subsystem"));
+	}
+}
+
+void UClientInstance::SearchLANSessionsJoinFirstFound()
+{
+	SessionSearch = MakeShareable(new FOnlineSessionSearch());
+	if (SessionSearch.IsValid())
+	{
+		SessionSearch->bIsLanQuery = true;
+		UE_LOG(LogTemp, Warning, TEXT("Start finding sessions"));
+		SessionInterface->FindSessions(0, SessionSearch.ToSharedRef());
 	}
 }
 

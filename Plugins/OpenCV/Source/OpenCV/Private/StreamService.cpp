@@ -17,7 +17,7 @@ StreamService::~StreamService()
 // It's executed from another thread, so that the stream
 // service doesn't clog the main program.
 // #if PLATFORM_WINDOWS
-void Listen(bool * KeepServing, Webcam* Camera)
+void Listen(Webcam* Camera, std::future<void> futureObj)
 {
 	WSADATA WSAData;
 	SOCKET server, client;
@@ -38,19 +38,26 @@ void Listen(bool * KeepServing, Webcam* Camera)
 	int clientAddrSize = sizeof(clientAddr);
 	if ((client = accept(server, (SOCKADDR *)&clientAddr, &clientAddrSize)) != INVALID_SOCKET)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("THREAD Client connected!"));
+		UE_LOG(LogTemp, Warning, TEXT("THREAD Client connected"));
 
-		while (*KeepServing)
+		while (futureObj.wait_for(std::chrono::milliseconds(1)) == std::future_status::timeout)
 		{
+			// UE_LOG(LogTemp, Warning, TEXT("THREAD KeepServing in true"));
+
 			if (Camera->GetFrame())
 			{
+				// UE_LOG(LogTemp, Warning, TEXT("Camera->GetFrame returned true. Sending video buffer..."));
 				send(client, Camera->GetVideoBuffer(), Camera->GetFrameNumberOfBytes(), 0);
-				std::this_thread::sleep_for(std::chrono::milliseconds((long long) (1000 / Camera->FrameRate)));
 			}
+			else {
+				UE_LOG(LogTemp, Warning, TEXT("Camera->GetFrame returned false"));
+			}
+
+			std::this_thread::sleep_for(std::chrono::milliseconds((long long) (1000 / Camera->FrameRate)));
 		}
 
 		closesocket(client);
-		UE_LOG(LogTemp, Warning, TEXT("THREAD Client disconnected."));
+		UE_LOG(LogTemp, Warning, TEXT("Stopping THREAD..."));
 	}
 
 	closesocket(server);
@@ -60,14 +67,14 @@ void Listen(bool * KeepServing, Webcam* Camera)
 void StreamService::StartStreamService()
 {
 // #if PLATFORM_WINDOWS
-	KeepServing = true;
-	StreamServer = std::thread(Listen, &KeepServing, Camera);
+	std::future<void> futureObj = exitSignal.get_future();
+	StreamServer = std::thread(Listen, Camera, std::move(futureObj));
 // #endif
 }
 
 void StreamService::StopStreamService()
 {
 // #if PLATFORM_WINDOWS
-	KeepServing = false;
+	exitSignal.set_value();
 // #endif
 }

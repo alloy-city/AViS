@@ -60,6 +60,9 @@ public:
 	UFUNCTION(Exec)
 	void DebugVideoCapture();
 
+	UFUNCTION(Exec)
+	void SearchLANSessionsJoinFirstFound();
+
 private:
 	void OnCreateSessionComplete(FName SessionName, bool Success);
 	void OnFindSessionsComplete(bool Success);

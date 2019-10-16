@@ -71,9 +71,11 @@ char* Webcam::GetVideoBuffer()
 bool Webcam::GetFrame()
 {
 // #if PLATFORM_WINDOWS
+	// UE_LOG(LogTemp, Warning, TEXT("Webcam::GetFrame"));
+
 	if (Stream.isOpened())
 	{
-		// UE_LOG(LogTemp, Warning, TEXT("Webcam::GetFrame"));
+		// UE_LOG(LogTemp, Warning, TEXT("[Webcam::GetFrame] Stream is open"));
 
 		Stream >> Frame;
 
@@ -95,7 +97,6 @@ bool Webcam::GetFrame()
 		{
 			Frame(Face).copyTo(CroppedFrame);
 
-			// TODO: Resize frame to fixed size
 			cv::resize(CroppedFrame, ResizedFrame, FaceResolution);
 
 			CompressionParams.push_back(cv::IMWRITE_JPEG_QUALITY);
@@ -118,6 +119,8 @@ bool Webcam::GetFrame()
 		}
 	}
 	else {
+		UE_LOG(LogTemp, Warning, TEXT("[Webcam::GetFrame] Stream is NOT open. Trying to open video stream"));
+
 		Stream.open(CameraID);
 		return false;
 	}
@@ -203,20 +206,7 @@ bool Webcam::DetectFace(
 			Face = cv::Rect(center.x - side/2, center.y - side/2, side, side);
 
 			// debugging
-			cv::rectangle(img, Face, color, 3, 8, 0);
-			/*UE_LOG(
-				LogTemp,
-				Warning,
-				TEXT("%s"), 
-				*FString::Printf(
-					TEXT("Faces: %i | X: %d | Y: %d"),
-					faces.size(),
-					center.x,
-					center.y
-				)
-			);*/
-
-
+			if (Debug) cv::rectangle(img, Face, color, 3, 8, 0);
 		}
 	}
 
