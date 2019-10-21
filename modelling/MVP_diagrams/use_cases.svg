@@ -15,7 +15,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="use_cases.svg">
+   sodipodi:docname="use_cases.svg"
+   inkscape:export-filename="C:\AViS\modelling\MVP_diagrams\use_cases.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,18 +28,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="818.30558"
-     inkscape:cy="1125.3186"
+     inkscape:zoom="0.18860209"
+     inkscape:cx="-226.68951"
+     inkscape:cy="1609.8195"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
-     inkscape:window-width="1928"
-     inkscape:window-height="1610"
-     inkscape:window-x="84"
-     inkscape:window-y="236"
-     inkscape:window-maximized="0" />
+     inkscape:window-width="2880"
+     inkscape:window-height="1586"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -330,5 +333,31 @@
          x="273.27518"
          id="tspan866"
          sodipodi:role="line">Falar</tspan></text>
+    <text
+       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="96"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:11.6354208px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.29088548"
+       x="55.193359"
+       y="67.578903"
+       id="text850"><tspan
+         sodipodi:role="line"
+         id="tspan848"
+         x="55.193359"
+         y="67.578903"
+         style="text-align:center;text-anchor:middle;stroke-width:0.29088548">Usuário A</tspan></text>
+    <text
+       id="text854"
+       y="67.578903"
+       x="485.97809"
+       style="font-style:normal;font-weight:normal;font-size:11.6354208px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.29088548"
+       xml:space="preserve"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         style="text-align:center;text-anchor:middle;stroke-width:0.29088548"
+         y="67.578903"
+         x="485.97809"
+         id="tspan852"
+         sodipodi:role="line">Usuário B</tspan></text>
   </g>
 </svg>
