@@ -46,20 +46,13 @@
 #include <opencv2/core.hpp>
 #include "opencv2/core/async.hpp"
 
-#if !defined CV_DOXYGEN && !defined CV_STATIC_ANALYSIS && !defined CV_DNN_DONT_ADD_EXPERIMENTAL_NS
-#define CV__DNN_EXPERIMENTAL_NS_BEGIN namespace experimental_dnn_34_v13 {
-#define CV__DNN_EXPERIMENTAL_NS_END }
-namespace cv { namespace dnn { namespace experimental_dnn_34_v13 { } using namespace experimental_dnn_34_v13; }}
-#else
-#define CV__DNN_EXPERIMENTAL_NS_BEGIN
-#define CV__DNN_EXPERIMENTAL_NS_END
-#endif
+#include "../dnn/version.hpp"
 
 #include <opencv2/dnn/dict.hpp>
 
 namespace cv {
 namespace dnn {
-CV__DNN_EXPERIMENTAL_NS_BEGIN
+CV__DNN_INLINE_NS_BEGIN
 //! @addtogroup dnn
 //! @{
 
@@ -77,7 +70,8 @@ CV__DNN_EXPERIMENTAL_NS_BEGIN
         DNN_BACKEND_DEFAULT,
         DNN_BACKEND_HALIDE,
         DNN_BACKEND_INFERENCE_ENGINE,  //!< Intel's Inference Engine computational backend.
-        DNN_BACKEND_OPENCV
+        DNN_BACKEND_OPENCV,
+        DNN_BACKEND_VKCOM
     };
 
     /**
@@ -90,6 +84,7 @@ CV__DNN_EXPERIMENTAL_NS_BEGIN
         DNN_TARGET_OPENCL,
         DNN_TARGET_OPENCL_FP16,
         DNN_TARGET_MYRIAD,
+        DNN_TARGET_VULKAN,
         DNN_TARGET_FPGA  //!< FPGA device with CPU fallbacks using Inference Engine's Heterogeneous plugin.
     };
 
@@ -278,6 +273,7 @@ CV__DNN_EXPERIMENTAL_NS_BEGIN
 
         virtual Ptr<BackendNode> initInfEngine(const std::vector<Ptr<BackendWrapper> > &inputs);
 
+        virtual Ptr<BackendNode> initVkCom(const std::vector<Ptr<BackendWrapper> > &inputs);
        /**
         * @brief Automatic Halide scheduling based on layer hyper-parameters.
         * @param[in] node Backend node with Halide functions.
@@ -997,7 +993,7 @@ CV__DNN_EXPERIMENTAL_NS_BEGIN
                              const float eta = 1.f, const int top_k = 0);
 
 //! @}
-CV__DNN_EXPERIMENTAL_NS_END
+CV__DNN_INLINE_NS_END
 }
 }
 

@@ -1,29 +1,92 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "UnrealNetwork.h"
+#include "Animation/AnimInstance.h"
+#include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "Components/InputComponent.h"
+#include "GameFramework/InputSettings.h"
+#include "Kismet/GameplayStatics.h"
+#include <SocketSubsystem.h>
 #include "Avatar.generated.h"
 
-UCLASS()
+class UInputComponent;
+
+UCLASS(config = Game)
 class AVIS_API AAvatar : public ACharacter
 {
 	GENERATED_BODY()
+	/** First person camera */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class UCameraComponent* FirstPersonCameraComponent;
 
 public:
-	// Sets default values for this character's properties
 	AAvatar();
+	virtual void Tick(float DeltaSeconds) override;
+
+	// Webcam* Camera = NULL;
+	float RefreshTimer = 0.0;
+	float RefreshRate = 2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	FString IpAddress;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Webcam)
+	UTexture2D* VideoTexture;
+
+	FUpdateTextureRegion2D* VideoUpdateTextureRegion;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void InformServerCameraIsOn();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void InformServerCameraIsOff();
+
+	// SUPER IMPORTANT: The Face
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	UMaterialInstanceDynamic* DynamicFace;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	TArray<FColor> FaceData;
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	virtual void BeginPlay();
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+public:
+	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	float BaseTurnRate;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	float BaseLookUpRate;
 
+protected:
+	/** Handles moving forward/backward */
+	void MoveForward(float Val);
+
+	/** Handles stafing movement, left and right */
+	void MoveRight(float Val);
+
+	/**
+	 * Called via input to turn at a given rate.
+	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
+	 */
+	void TurnAtRate(float Rate);
+
+	/**
+	 * Called via input to turn look up/down at a given rate.
+	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
+	 */
+	void LookUpAtRate(float Rate);
+
+protected:
+	// APawn interface
+	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
+
+public:
+	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 };
