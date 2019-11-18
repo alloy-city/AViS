@@ -1,0 +1,21 @@
+Lista de Figuras
+Figura 1 - Modalidades de educação	8
+Figura 2 - Ilustração da experiência provida por ferramentas de videoconferência	12
+Figura 3 - Ilustração comparativa entre os modelos tradicional e proposto	14
+Figura 4 - Diagrama de Casos de Uso	22
+Figura 5 - Visão global da comunicação intra instâncias	29
+Figura 6 - Arquitetura do cliente AViS	30
+Figura 7 - Diagrama de Componentes	34
+Figura 8 - Diagrama de Classes	35
+Figura 9 - Diagrama de Sequência: TurnCameraOn	37
+Figura 10 - Diagrama de Sequência: TurnCameraOff	38
+Figura 11 - Diagrama de Estados	39
+Figura 12 - Debugger do algoritmo de identificação de rostos	40
+
+Lista de Quadros
+Quadro 1 - Plano de Riscos	19
+Quadro 2 - Níveis de probabilidade de impacto	19
+Quadro 3 - Caso de Uso FR1	23
+Quadro 4 - Caso de Uso FR2	24
+Quadro 5 - Caso de Uso FR3	25
+Quadro 6 - Caso de Uso FR4	26
