@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1920"
+   height="1080"
+   viewBox="0 0 507.99998 285.75001"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="03.svg"
+   inkscape:export-filename="C:\AViS\Docs\presentation\slides\03.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path915"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#2d3319;stroke-width:1pt;stroke-opacity:1;fill:#2d3319;fill-opacity:1"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path909"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#2d3319;stroke-width:1pt;stroke-opacity:1;fill:#2d3319;fill-opacity:1"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.53391071"
+     inkscape:cx="1148.2253"
+     inkscape:cy="293.66279"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     width="1920px"
+     inkscape:window-width="2880"
+     inkscape:window-height="1586"
+     inkscape:window-x="2869"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="background">
+    <g
+       transform="translate(0,-11.250002)"
+       id="g875">
+      <rect
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         inkscape:export-filename="C:\AViS\Docs\presentation\slides\0.png"
+         y="11.250002"
+         x="-5.5555591e-07"
+         height="285.75"
+         width="508"
+         id="rect825"
+         style="opacity:1;fill:#d6e5e3;fill-opacity:1;stroke:none;stroke-width:1.19681299;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" />
+      <rect
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         inkscape:export-filename="C:\AViS\Docs\presentation\slides\0.png"
+         style="opacity:1;fill:#cacfd6;fill-opacity:1;stroke:none;stroke-width:0.86693007;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+         id="rect862"
+         width="266.55038"
+         height="285.75"
+         x="166.68396"
+         y="11.250002" />
+      <text
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         inkscape:export-filename="C:\AViS\Docs\presentation\slides\0.png"
+         transform="scale(1.042753,-0.95899988)"
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.14941597px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#d6e5e3;fill-opacity:1;stroke:none;stroke-width:0.25373539"
+         x="169.48634"
+         y="-274.36478"
+         id="text866"><tspan
+           sodipodi:role="line"
+           id="tspan864"
+           x="169.48634"
+           y="-274.36478"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:21.65208817px;font-family:Bariol;-inkscape-font-specification:'Bariol Bold';fill:#d6e5e3;fill-opacity:1;stroke-width:0.25373539">AViS</tspan></text>
+      <text
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         inkscape:export-filename="C:\AViS\Docs\presentation\slides\0.png"
+         id="text845"
+         y="245.57582"
+         x="176.73236"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#d6e5e3;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.57777786px;font-family:Bariol;-inkscape-font-specification:'Bariol Bold';fill:#d6e5e3;fill-opacity:1;stroke-width:0.26458332"
+           y="245.57582"
+           x="176.73236"
+           id="tspan843"
+           sodipodi:role="line">AViS</tspan></text>
+      <path
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         inkscape:export-filename="C:\AViS\Docs\presentation\slides\0.png"
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="rect859"
+         d="M 166.6875,254.11061 H 433.16071 L 508,296.99999 H -5.5555591e-7 Z"
+         style="opacity:0.625;fill:#517664;fill-opacity:1;stroke:none;stroke-width:0.46366906;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" />
+    </g>
+    <rect
+       style="opacity:0.372;fill:#fbfbfb;fill-opacity:1;stroke:none;stroke-width:10.82450008;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="rect922"
+       width="508"
+       height="285.75"
+       x="-5.5555591e-07"
+       y="-3.1250013e-07"
+       ry="0" />
+  </g>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-11.250002)">
+    <rect
+       style="opacity:1;fill:#cacfd6;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="rect815"
+       width="37.797619"
+       height="37.797619"
+       x="180.29465"
+       y="321.19049"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="321.19049"
+       x="218.09227"
+       height="37.797619"
+       width="37.797619"
+       id="rect817"
+       style="opacity:1;fill:#d6e5e3;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="321.19049"
+       x="255.88989"
+       height="37.797619"
+       width="37.797619"
+       id="rect819"
+       style="opacity:1;fill:#9fd8cb;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="opacity:1;fill:#517664;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="rect821"
+       width="37.797619"
+       height="37.797619"
+       x="293.6875"
+       y="321.19049"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="321.19049"
+       x="331.48511"
+       height="37.797619"
+       width="37.797619"
+       id="rect823"
+       style="opacity:1;fill:#2d3319;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="opacity:1;fill:#2d3319;fill-opacity:1;stroke:none;stroke-width:0.03225042;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+       id="rect815-7"
+       width="1.822373"
+       height="246.02184"
+       x="175.81802"
+       y="34.892704"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       y="-404.07166"
+       x="259.95712"
+       height="246.02184"
+       width="1.822373"
+       id="rect817-9"
+       style="opacity:1;fill:#2d3319;fill-opacity:1;stroke:none;stroke-width:0.03225042;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+       transform="rotate(90)"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <g
+       id="g947"
+       style="fill:#2d3319;fill-opacity:1">
+      <text
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         id="text821"
+         y="279.40378"
+         x="215.96297"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.21938992px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#2d3319;fill-opacity:1;stroke:none;stroke-width:0.33048475"
+         xml:space="preserve"><tspan
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.33048475;fill:#2d3319;fill-opacity:1"
+           y="279.40378"
+           x="215.96297"
+           id="tspan819"
+           sodipodi:role="line">síncrono</tspan></text>
+      <text
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.21938992px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#2d3319;fill-opacity:1;stroke:none;stroke-width:0.33048475"
+         x="320.75"
+         y="279.40378"
+         id="text825"><tspan
+           sodipodi:role="line"
+           id="tspan823"
+           x="320.75"
+           y="279.40378"
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.33048475;fill:#2d3319;fill-opacity:1">assíncrono</tspan></text>
+      <text
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         transform="rotate(-90)"
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.21938992px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#2d3319;fill-opacity:1;stroke:none;stroke-width:0.33048475"
+         x="-234.82486"
+         y="166.56836"
+         id="text829"><tspan
+           sodipodi:role="line"
+           id="tspan827"
+           x="-234.82486"
+           y="166.56836"
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.33048475;fill:#2d3319;fill-opacity:1">presencial</tspan></text>
+      <text
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         transform="rotate(-90)"
+         id="text833"
+         y="166.56836"
+         x="-115.91435"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.21938992px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#2d3319;fill-opacity:1;stroke:none;stroke-width:0.33048475"
+         xml:space="preserve"><tspan
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.33048475;fill:#2d3319;fill-opacity:1"
+           y="166.56836"
+           x="-115.91435"
+           id="tspan831"
+           sodipodi:role="line">remoto</tspan></text>
+      <text
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         id="text845-1"
+         y="194.03268"
+         x="355.16937"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.21938992px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#2d3319;fill-opacity:1;stroke:none;stroke-width:0.33048475"
+         xml:space="preserve"><tspan
+           id="tspan849"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#2d3319;stroke-width:0.33048475;fill-opacity:1"
+           y="194.03268"
+           x="355.16937"
+           sodipodi:role="line">videoaula</tspan><tspan
+           id="tspan856"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#2d3319;stroke-width:0.33048475;fill-opacity:1"
+           y="210.55692"
+           x="357.00253"
+           sodipodi:role="line"> na sala </tspan><tspan
+           id="tspan858"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#2d3319;stroke-width:0.33048475;fill-opacity:1"
+           y="227.08116"
+           x="355.16937"
+           sodipodi:role="line">de aula</tspan></text>
+      <text
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.21938992px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#2d3319;fill-opacity:1;stroke:none;stroke-width:0.33048475"
+         x="247.24745"
+         y="193.38837"
+         id="text866-8"><tspan
+           sodipodi:role="line"
+           x="247.24745"
+           y="193.38837"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#2d3319;stroke-width:0.33048475;fill-opacity:1"
+           id="tspan864-3">sala de</tspan><tspan
+           id="tspan873"
+           sodipodi:role="line"
+           x="247.24745"
+           y="209.9126"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#2d3319;stroke-width:0.33048475;fill-opacity:1">aula</tspan><tspan
+           id="tspan875"
+           sodipodi:role="line"
+           x="247.24745"
+           y="226.43684"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#2d3319;stroke-width:0.33048475;fill-opacity:1">tradicional</tspan></text>
+      <text
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         id="text883"
+         y="88.687988"
+         x="251.4355"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.21938992px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#2d3319;fill-opacity:1;stroke:none;stroke-width:0.33048475"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#2d3319;stroke-width:0.33048475;fill-opacity:1"
+           y="88.687988"
+           x="253.26866"
+           sodipodi:role="line"
+           id="tspan881">aula por </tspan><tspan
+           id="tspan890"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#2d3319;stroke-width:0.33048475;fill-opacity:1"
+           y="105.21223"
+           x="251.4355"
+           sodipodi:role="line">videoconferência</tspan></text>
+      <text
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.21938992px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#2d3319;fill-opacity:1;stroke:none;stroke-width:0.33048475"
+         x="361.29031"
+         y="83.533516"
+         id="text896"><tspan
+           sodipodi:role="line"
+           x="361.29031"
+           y="83.533516"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#2d3319;stroke-width:0.33048475;fill-opacity:1"
+           id="tspan894">videoaula</tspan><tspan
+           id="tspan900"
+           sodipodi:role="line"
+           x="363.12347"
+           y="100.05775"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#2d3319;stroke-width:0.33048475;fill-opacity:1">na casa </tspan><tspan
+           id="tspan902"
+           sodipodi:role="line"
+           x="361.29031"
+           y="116.58199"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#2d3319;stroke-width:0.33048475;fill-opacity:1">do aluno</tspan></text>
+    </g>
+  </g>
+</svg>
